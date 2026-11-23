@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<title>Pleiar – varianta galben, negru, alb</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0A0A0A}
+a{color:inherit}a:hover{opacity:.85}
+.tile{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.tile:hover{transform:translateY(-6px) rotate(-0.4deg)}
+.chip{transition:background .2s,color .2s;cursor:pointer}
+.navlink{text-decoration:none;color:#BDBDBD}
+.navlink:hover{color:#FFFFFF;opacity:1}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee{display:flex;width:max-content;animation:slide 28s linear infinite}
+@media (prefers-reduced-motion: reduce){.marquee{animation:none}.tile:hover{transform:none}}
+</style>
+</helmet>
+<div style="background: #0A0A0A; color: #FFFFFF; font-family: Inter, system-ui, sans-serif; min-height: 100vh">
+
+<!-- NAV -->
+<header style="position: sticky; top: 0; z-index: 10; background: #0A0A0A; border-bottom: 1px solid #222222">
+<nav aria-label="Navigare principală" style="max-width: 1240px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="text-decoration: none; display: flex; align-items: center; gap: 10px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; background: {{accent}}; color: #0A0A0A; padding: 4px 10px; border-radius: 6px">PLEIAR</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px; font-size: 15px">
+<a class="navlink" href="#despre">Despre</a>
+<a class="navlink" href="#youtube">YouTube</a>
+<a class="navlink" href="#clienti">Clienți</a>
+<a class="navlink" href="#servicii">Ce oferim</a>
+<a href="#contact" style="text-decoration: none; background: {{accent}}; color: #0A0A0A; font-weight: 600; padding: 12px 20px; border-radius: 999px">Hai să lucrăm</a>
+</div>
+</nav>
+</header>
+
+<!-- HERO (negru) -->
+<section id="top" style="max-width: 1240px; margin: 0 auto; padding: 96px 24px 72px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 24px; max-width: 1040px">
+<div style="display: flex; align-items: center; gap: 10px; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #BDBDBD">
+<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: {{accent}}"></span>
+Vlogger · Editor · Agenție
+</div>
+<h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 100px); line-height: 1; letter-spacing: -0.03em">Facem clipuri pe care oamenii <span style="background: {{accent}}; color: #0A0A0A; padding: 0 0.15em; border-radius: 0.12em; -webkit-box-decoration-break: clone; box-decoration-break: clone">chiar le privesc</span> până la capăt.</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55; color: #BDBDBD; max-width: 640px">Am început cu propriul canal de YouTube. Acum filmăm, edităm și creștem conturile de social media ale clienților noștri.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px">
+<a href="#clienti" style="text-decoration: none; background: {{accent}}; color: #0A0A0A; font-weight: 600; padding: 16px 26px; border-radius: 999px">Vezi rezultatele</a>
+<a href="#youtube" style="text-decoration: none; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: 500; padding: 16px 26px; border-radius: 999px">Canalul de YouTube</a>
+</div>
+</div>
+<div style="position: relative; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; background: #161616; border: 1px solid #2A2A2A; display: flex; align-items: center; justify-content: center">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 16px">
+<span style="width: 88px; height: 88px; border-radius: 50%; background: {{accent}}; display: flex; align-items: center; justify-content: center">
+<svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="#0A0A0A"><path d="M8 5v14l11-7z"></path></svg>
+</span>
+<span style="font-size: 15px; color: #BDBDBD">[Showreel 60 s – video pe tot ecranul, pornește automat fără sunet]</span>
+</div>
+</div>
+</section>
+
+<!-- BANDA GALBENA -->
+<div aria-hidden="true" style="background: {{accent}}; color: #0A0A0A; overflow: hidden; border-top: 2px solid #0A0A0A; border-bottom: 2px solid #0A0A0A">
+<div class="marquee" style="padding: 18px 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 0.02em; white-space: nowrap; gap: 40px">
+<span>EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦</span>
+<span>EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦</span>
+</div>
+</div>
+
+<!-- DESPRE (alb) -->
+<section id="despre" style="background: #FAFAF7; color: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 104px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 56px; align-items: center">
+<div style="position: relative">
+<div aria-hidden="true" style="position: absolute; inset: 18px -18px -18px 18px; background: {{accent}}; border-radius: 20px"></div>
+<div style="position: relative; aspect-ratio: 4 / 5; border-radius: 20px; background: #0A0A0A; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; color: #BDBDBD; font-size: 15px">[Portret Pleiar – din culise, cu camera în mână]</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 24px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #0A0A0A">01 · Omul din spatele camerei</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.02; letter-spacing: -0.02em">Salut, sunt Pleiar.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.65; color: #4A4A4A">[2–3 fraze despre tine: cum ai început canalul, ce fel de vloguri faci și de ce. Scrise la persoana I, pe tonul de pe canal.]</p>
+<p style="margin: 0; font-size: 18px; line-height: 1.65; color: #4A4A4A">[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]</p>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 12px">
+<div style="border-top: 4px solid #0A0A0A; padding-top: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700">[nr.]</span>
+<span style="font-size: 14px; color: #4A4A4A">abonați YouTube</span>
+</div>
+<div style="border-top: 4px solid #0A0A0A; padding-top: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700">[nr.]</span>
+<span style="font-size: 14px; color: #4A4A4A">vizualizări pe canal</span>
+</div>
+<div style="border-top: 4px solid #0A0A0A; padding-top: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700">[nr.]</span>
+<span style="font-size: 14px; color: #4A4A4A">clipuri editate</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TOP 3 YOUTUBE (negru) -->
+<section id="youtube" style="background: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 104px 24px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 680px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: {{accent}}">02 · De pe canalul meu</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.02; letter-spacing: -0.02em">Top 3 clipuri de pe YouTube</h2>
+</div>
+<a href="#" style="text-decoration: none; background: #FFFFFF; color: #0A0A0A; padding: 14px 22px; border-radius: 999px; font-weight: 600">Abonează-te pe YouTube</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px">
+<sc-for list="{{topVideos}}" as="v" hint-placeholder-count="3">
+<a class="tile" href="#" style="text-decoration: none; color: #FFFFFF; display: flex; flex-direction: column; gap: 16px">
+<div style="position: relative; aspect-ratio: 16 / 9; border-radius: 14px; background: #1A1A1A; border: 1px solid #2A2A2A; display: flex; align-items: center; justify-content: center; color: #9A9A9A; font-size: 14px">
+[Thumbnail clip {{v.n}}]
+<span style="position: absolute; left: -10px; top: -14px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; background: {{accent}}; color: #0A0A0A; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center">{{v.n}}</span>
+<span style="position: absolute; right: 12px; bottom: 12px; font-size: 13px; background: #0A0A0A; color: #FFFFFF; padding: 4px 8px; border-radius: 6px">[durată]</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 19px; font-weight: 600; line-height: 1.35">[Titlul clipului {{v.n}}]</span>
+<span style="font-size: 15px; color: {{accent}}; font-weight: 600">[nr.] vizualizări</span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- CLIENTI (galben) -->
+<section id="clienti" style="background: {{accent}}; color: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 104px 24px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 780px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase">03 · Agenția</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.02; letter-spacing: -0.02em">Clienții noștri și clipurile care au mers</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #2A2600">Filmăm și edităm pentru branduri și creatori pe TikTok, Instagram și YouTube. Cifrele sunt de pe conturile lor.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+<sc-for list="{{logos}}" as="l" hint-placeholder-count="6">
+<div style="height: 72px; border: 2px solid #0A0A0A; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500">[Logo client {{l.n}}]</div>
+</sc-for>
+</div>
+
+<div role="group" aria-label="Filtrează după platformă" style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="4">
+<button class="chip" type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" style="{{c.style}}">{{c.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px">
+<sc-for list="{{clips}}" as="k" hint-placeholder-count="8">
+<a class="tile" href="#" style="text-decoration: none; color: #FFFFFF; display: flex; flex-direction: column; gap: 12px; border-radius: 18px; padding: 10px; background: #0A0A0A">
+<div style="position: relative; aspect-ratio: 9 / 16; border-radius: 12px; background: #1A1A1A; display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px; color: #9A9A9A; font-size: 14px">
+[Clip vertical – {{k.client}}]
+<span style="position: absolute; left: 10px; top: 10px; font-size: 12px; font-weight: 600; background: #FFFFFF; color: #0A0A0A; padding: 5px 9px; border-radius: 999px">{{k.platform}}</span>
+<span style="position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; justify-content: space-between; background: {{accent}}; color: #0A0A0A; padding: 8px 12px; border-radius: 10px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px">[nr.] views</span>
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="#0A0A0A"><path d="M8 5v14l11-7z"></path></svg>
+</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 4px 6px">
+<span style="font-size: 16px; font-weight: 600">{{k.client}}</span>
+<span style="font-size: 14px; color: #BDBDBD">{{k.what}}</span>
+</div>
+</a>
+</sc-for>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; border-top: 2px solid #0A0A0A; padding-top: 32px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700">[nr.]</span>
+<span style="font-size: 15px; color: #2A2600">vizualizări generate pentru clienți</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700">[nr.]</span>
+<span style="font-size: 15px; color: #2A2600">clienți activi</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 52px; font-weight: 700">[nr.]</span>
+<span style="font-size: 15px; color: #2A2600">urmăritori câștigați de clienți</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SERVICII (alb) -->
+<section id="servicii" style="background: #FAFAF7; color: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 104px 24px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase">04 · Ce oferim</div>
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 4.5vw, 64px); line-height: 1.02; letter-spacing: -0.02em">De la filmare la contul care crește</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="4">
+<div class="tile" style="{{s.cardStyle}}">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600">{{s.num}}</span>
+<sc-if value="{{s.featured}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 12px; font-weight: 600; background: {{accent}}; color: #0A0A0A; padding: 5px 10px; border-radius: 999px">Cel mai cerut</span>
+</sc-if>
+</div>
+<h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; line-height: 1.15">{{s.title}}</h3>
+<p style="{{s.descStyle}}">{{s.desc}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 15px">
+<sc-for list="{{s.items}}" as="it" hint-placeholder-count="3">
+<li style="display: flex; gap: 10px; align-items: flex-start"><span aria-hidden="true" style="{{s.dotStyle}}"></span>{{it}}</li>
+</sc-for>
+</ul>
+<div style="{{s.priceStyle}}">de la [PREȚ]</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- CONTACT (galben) -->
+<section id="contact" style="background: {{accent}}; color: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 128px 24px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px">
+<h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(44px, 7vw, 104px); line-height: 0.98; letter-spacing: -0.03em; max-width: 1000px">Ai ceva de filmat? Hai să vorbim.</h2>
+<p style="margin: 0; font-size: 19px; color: #2A2600; max-width: 560px">Spune-ne pe scurt ce vrei să faci, iar noi revenim cu o propunere în [nr.] zile.</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px">
+<a href="#" style="text-decoration: none; background: #0A0A0A; color: #FFFFFF; font-weight: 600; padding: 18px 30px; border-radius: 999px; font-size: 17px">Programează un call</a>
+<a href="#" style="text-decoration: none; border: 2px solid #0A0A0A; color: #0A0A0A; font-weight: 500; padding: 16px 28px; border-radius: 999px; font-size: 17px">[email@domeniu.ro]</a>
+</div>
+</div>
+</section>
+<footer style="background: #0A0A0A">
+<div style="max-width: 1240px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 14px; color: #9A9A9A">
+<span>© 2026 Pleiar · [Numele agenției]</span>
+<div style="display: flex; gap: 24px">
+<a class="navlink" href="#">YouTube</a>
+<a class="navlink" href="#">Instagram</a>
+<a class="navlink" href="#">TikTok</a>
+</div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#FFD60A","options":["#FFD60A","#FFC300","#F5E663","#FFE14D"]},"$preview":{"width":1440,"height":5900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { platform: 'Toate' };
+  }
+  renderVals() {
+    const accent = this.props.accent ?? '#FFD60A';
+    const platforms = ['Toate', 'TikTok', 'Instagram', 'YouTube Shorts'];
+    const allClips = [
+      { client: '[Client 1]', platform: 'TikTok', what: '[Ce am făcut: filmare + editare]' },
+      { client: '[Client 2]', platform: 'Instagram', what: '[Ce am făcut: editare Reels]' },
+      { client: '[Client 3]', platform: 'YouTube Shorts', what: '[Ce am făcut: editare]' },
+      { client: '[Client 4]', platform: 'TikTok', what: '[Ce am făcut: campanie]' },
+      { client: '[Client 5]', platform: 'Instagram', what: '[Ce am făcut: filmare + editare]' },
+      { client: '[Client 6]', platform: 'TikTok', what: '[Ce am făcut: editare]' },
+      { client: '[Client 7]', platform: 'YouTube Shorts', what: '[Ce am făcut: editare]' },
+      { client: '[Client 8]', platform: 'Instagram', what: '[Ce am făcut: campanie]' }
+    ];
+    const p = this.state.platform;
+    const clips = p === 'Toate' ? allClips : allClips.filter((c) => c.platform === p);
+    const chips = platforms.map((label) => {
+      const on = label === p;
+      return {
+        label,
+        pressed: on ? 'true' : 'false',
+        pick: () => this.setState({ platform: label }),
+        style: 'font: 600 15px Inter, sans-serif; min-height: 44px; padding: 10px 20px; border-radius: 999px; border: 2px solid #0A0A0A; background: ' + (on ? '#0A0A0A' : 'transparent') + '; color: ' + (on ? accent : '#0A0A0A')
+      };
+    });
+    const services = [
+      { num: '01', title: 'Editare video', desc: 'Short-form și long-form, cu ritm construit pentru retenție.', items: ['Reels, TikTok, Shorts', 'Vloguri și clipuri YouTube', 'Subtitrări, sound design, color'], featured: false },
+      { num: '02', title: 'Filmare', desc: 'Venim cu echipamentul și filmăm conținut gata de editat.', items: ['Zile de filmare pentru branduri', 'Evenimente și behind the scenes', 'Conținut pentru o lună într-o zi'], featured: false },
+      { num: '03', title: 'Social media & marketing', desc: 'Strategie, calendar de postări și creștere organică.', items: ['Strategie și idei de conținut', 'Administrare conturi', 'Rapoarte lunare cu rezultate'], featured: false },
+      { num: '04', title: 'Pachet complet', desc: 'Idee, filmare, editare și postare. Tu doar apari în cadru.', items: ['Tot ce e mai sus, lunar', 'Un om dedicat contului tău', '[Nr.] clipuri pe lună'], featured: true }
+    ].map((s) => {
+      const f = s.featured;
+      return {
+        ...s,
+        cardStyle: 'display: flex; flex-direction: column; gap: 18px; padding: 28px; border-radius: 20px; border: 2px solid #0A0A0A; ' + (f ? 'background: #0A0A0A; color: #FFFFFF' : 'background: #FFFFFF; color: #0A0A0A'),
+        descStyle: 'margin: 0; font-size: 16px; line-height: 1.6; color: ' + (f ? '#BDBDBD' : '#4A4A4A'),
+        dotStyle: 'margin-top: 7px; width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; background: ' + (f ? accent : '#0A0A0A'),
+        priceStyle: 'margin-top: auto; padding-top: 16px; font-family: Space Grotesk, sans-serif; font-size: 20px; font-weight: 700; border-top: 2px solid ' + (f ? accent : '#0A0A0A') + '; color: ' + (f ? accent : '#0A0A0A')
+      };
+    });
+    return {
+      accent,
+      topVideos: [{ n: 1 }, { n: 2 }, { n: 3 }],
+      logos: [{ n: 1 }, { n: 2 }, { n: 3 }, { n: 4 }, { n: 5 }, { n: 6 }],
+      chips,
+      clips,
+      services
+    };
+  }
+}
+</script>
+</body>
+</html>
