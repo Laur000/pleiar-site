@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { site } from "@/content/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,8 +18,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Pleiar",
-  description: "Vlogger, editor video și agenție de social media.",
+  title: site.meta.title,
+  description: site.meta.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
