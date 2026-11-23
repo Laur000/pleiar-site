@@ -4,6 +4,7 @@ import { Marquee } from "@/components/sections/Marquee";
 import { About } from "@/components/sections/About";
 import { YouTubeTop } from "@/components/sections/YouTubeTop";
 import { Clients } from "@/components/sections/Clients";
+import { Services } from "@/components/sections/Services";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <About />
         <YouTubeTop />
         <Clients />
+        <Services />
       </main>
     </>
   );
