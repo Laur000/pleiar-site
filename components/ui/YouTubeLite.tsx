@@ -7,6 +7,8 @@ type Props = {
   youtubeId: string;
   title: string;
   playLabel: string;
+  /** Thumbnail propriu (public/images/youtube/). Dacă lipsește, se ia cel de la YouTube. */
+  thumbnail?: string | null;
   /** Afișat peste thumbnail (ex. numărul și durata). */
   children?: React.ReactNode;
 };
@@ -15,7 +17,7 @@ type Props = {
  * Embed YouTube „lite”: la început e doar thumbnail-ul (o imagine).
  * Iframe-ul YouTube se încarcă abia după click, ca pagina să rămână rapidă.
  */
-export function YouTubeLite({ youtubeId, title, playLabel, children }: Props) {
+export function YouTubeLite({ youtubeId, title, playLabel, thumbnail, children }: Props) {
   const [playing, setPlaying] = useState(false);
 
   if (playing) {
@@ -38,7 +40,7 @@ export function YouTubeLite({ youtubeId, title, playLabel, children }: Props) {
       className="group absolute inset-0 size-full cursor-pointer"
     >
       <Image
-        src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+        src={thumbnail ?? `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
         alt=""
         fill
         sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"

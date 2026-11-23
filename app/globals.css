@@ -135,6 +135,10 @@
     /* ancorele nu ajung sub meniul sticky */
     scroll-padding-top: 72px;
   }
+  /* pagina nu se mișcă în spate cât timp un clip e deschis pe tot ecranul */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
   body {
     font-size: 16px;
     line-height: 1.6;

@@ -8,10 +8,20 @@ import { isExternal } from "@/lib/links";
 
 type Clip = SiteContent["clients"]["clips"][number];
 
-type Props = { clip: Clip; viewsLabel: string };
+type Props = {
+  clip: Clip;
+  viewsLabel: string;
+  /** Textul butonului care deschide clipul pe tot ecranul (pentru cititoare de ecran). */
+  openLabel: string;
+  /** Deschide clipul pe tot ecranul, cu sunet. */
+  onOpen: () => void;
+};
 
-/** Card negru cu clip vertical 9:16, platforma sus și banda galbenă cu views jos. */
-export function ClipCard({ clip, viewsLabel }: Props) {
+/**
+ * Card negru cu clip vertical 9:16, platforma sus și banda galbenă cu views jos.
+ * Preview-ul e mut; click pe card deschide clipul pe tot ecranul, cu sunet.
+ */
+export function ClipCard({ clip, viewsLabel, openLabel, onOpen }: Props) {
   const [hovered, setHovered] = useState(false);
   const views = `${formatNumber(clip.views)} ${viewsLabel}`;
 
@@ -19,16 +29,29 @@ export function ClipCard({ clip, viewsLabel }: Props) {
     <>
       <div className="relative aspect-[9/16] overflow-hidden rounded-xl bg-gray-900">
         {clip.video ? (
-          <ClipVideo src={clip.video} poster={clip.poster} hovered={hovered} />
+          <>
+            <ClipVideo src={clip.video} poster={clip.poster} hovered={hovered} />
+            {/* Tot clipul e un buton: deschide player-ul pe tot ecranul. */}
+            <button
+              type="button"
+              onClick={() => {
+                // Oprește preview-ul mut din card: clipul HD din player are nevoie de toată conexiunea.
+                setHovered(false);
+                onOpen();
+              }}
+              aria-label={`${openLabel}: ${clip.client}, ${clip.platform}`}
+              className="absolute inset-0 size-full cursor-pointer rounded-xl"
+            />
+          </>
         ) : (
           <div className="flex size-full items-center justify-center p-3 text-center text-sm text-gray-400">
             {clip.placeholder}
           </div>
         )}
-        <span className="absolute top-2.5 left-2.5 rounded-pill bg-pure-white px-2.5 py-1 text-xs font-semibold text-black">
+        <span className="pointer-events-none absolute top-2.5 left-2.5 rounded-pill bg-pure-white px-2.5 py-1 text-xs font-semibold text-black">
           {clip.platform}
         </span>
-        <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-2 rounded-[10px] bg-yellow px-3 py-2 text-black">
+        <span className="pointer-events-none absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-2 rounded-[10px] bg-yellow px-3 py-2 text-black">
           <span className="font-display text-[15px] leading-tight font-bold sm:text-lg">{views}</span>
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
             <path d="M8 5v14l11-7z" />
@@ -42,14 +65,19 @@ export function ClipCard({ clip, viewsLabel }: Props) {
     </>
   );
 
-  const className =
-    "tile flex h-full flex-col gap-3 rounded-[18px] bg-black p-2.5 text-pure-white [--focus-color:var(--color-black)]";
+  // Focus: galben pe butonul din cardul negru; negru când tot cardul e link (contur pe fundalul galben).
+  const linkCard = !clip.video && !!clip.href;
+  const className = `tile flex h-full flex-col gap-3 rounded-[18px] bg-black p-2.5 text-pure-white ${
+    linkCard ? "[--focus-color:var(--color-black)]" : "[--focus-color:var(--color-yellow)]"
+  }`;
   const hoverProps = {
     onMouseEnter: () => setHovered(true),
     onMouseLeave: () => setHovered(false),
   };
 
-  if (clip.href) {
+  // Fără clip, dar cu link: tot cardul duce la clipul original.
+  // (Când există clip, linkul original apare în player-ul pe tot ecranul.)
+  if (linkCard && clip.href) {
     return (
       <a
         href={clip.href}

@@ -9,6 +9,8 @@
  * - Linkurile care încă lipsesc sunt `null`; butonul respectiv duce la „#” până le completezi.
  * - Fișierele (poze, clipuri, logo-uri) se pun în `public/` și se scriu aici cu „/” în față,
  *   ex. „/images/portret.webp”. Cât timp sunt `null`, apare un placeholder.
+ * - Clipurile: pui originalul în `public/raw/` și rulezi `npm run videos`. Scriptul face
+ *   preview-ul, versiunea HD și coperta; aici scrii doar căile lor.
  */
 
 /* ------------------------------------------------------------------ */
@@ -103,6 +105,8 @@ export type SiteContent = {
     videos: {
       /** ID-ul din link: youtube.com/watch?v=ACESTA */
       youtubeId: string | null;
+      /** Thumbnail propriu 16:9 în public/images/youtube/. Dacă e `null`, se ia cel de la YouTube. */
+      thumbnail: Url;
       title: string;
       views: number | null;
       /** Ex. „12:34”. */
@@ -125,14 +129,25 @@ export type SiteContent = {
       platforms: Platform[];
     };
     viewsLabel: string;
+    /** Player-ul care se deschide pe tot ecranul, cu sunet, la click pe un clip. */
+    player: {
+      openLabel: string;
+      closeLabel: string;
+      /** Citit de cititoarele de ecran cât timp clipul se încarcă. */
+      loadingLabel: string;
+      /** Butonul spre clipul original (apare doar dacă clipul are `href`). */
+      originalLabel: string;
+    };
     clips: {
       client: string;
       platform: Platform;
       /** Ce am făcut pentru client. */
       what: string;
       views: number | null;
-      /** MP4 vertical în public/videos/. */
+      /** Preview mut pentru card (public/videos/nume.mp4, făcut de `npm run videos`). */
       video: Url;
+      /** Versiunea HD cu sunet, pentru ecran complet (public/videos/nume-hd.mp4). Dacă lipsește, se folosește preview-ul. */
+      videoHd: Url;
       /** WebP în public/posters/. */
       poster: Url;
       /** Linkul spre clipul original (opțional). */
@@ -213,8 +228,8 @@ export const site: SiteContent = {
     primaryCta: { label: "Vezi rezultatele", href: "#clienti" },
     secondaryCta: { label: "Canalul de YouTube", href: "#youtube" },
     showreel: {
-      src: null,
-      poster: null,
+      src: "/videos/showreel.mp4", // TEST – de înlocuit
+      poster: "/posters/showreel.webp",
       placeholder:
         "[Showreel 60 s – video pe tot ecranul, pornește automat fără sunet]",
       soundOnLabel: "Pornește sunetul",
@@ -235,7 +250,7 @@ export const site: SiteContent = {
       "[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]",
     ],
     portrait: {
-      src: null,
+      src: "/images/portret.jpg", // TEST – de înlocuit
       alt: "Pleiar în culise, cu camera în mână",
       placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
     },
@@ -254,9 +269,9 @@ export const site: SiteContent = {
     viewsLabel: "vizualizări",
     playLabel: "Redă clipul",
     videos: [
-      { youtubeId: null, title: "[Titlul clipului 1]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 1]" },
-      { youtubeId: null, title: "[Titlul clipului 2]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 2]" },
-      { youtubeId: null, title: "[Titlul clipului 3]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 3]" },
+      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 1]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 1]" },
+      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 2]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 2]" },
+      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 3]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 3]" },
     ],
   },
 
@@ -279,15 +294,21 @@ export const site: SiteContent = {
       platforms: ["TikTok", "Instagram", "YouTube Shorts"],
     },
     viewsLabel: "views",
+    player: {
+      openLabel: "Vezi clipul cu sunet",
+      closeLabel: "Închide clipul",
+      loadingLabel: "Se încarcă clipul…",
+      originalLabel: "Vezi clipul original",
+    },
     clips: [
-      { client: "[Client 1]", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 1]" },
-      { client: "[Client 2]", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 2]" },
-      { client: "[Client 3]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 3]" },
-      { client: "[Client 4]", platform: "TikTok", what: "[Ce am făcut: campanie]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 4]" },
-      { client: "[Client 5]", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 5]" },
-      { client: "[Client 6]", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 6]" },
-      { client: "[Client 7]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 7]" },
-      { client: "[Client 8]", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: null, poster: null, href: null, placeholder: "[Clip vertical – Client 8]" },
+      { client: "[Client 1]", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 1]" },
+      { client: "[Client 2]", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 2]" },
+      { client: "[Client 3]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 3]" },
+      { client: "[Client 4]", platform: "TikTok", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 4]" },
+      { client: "[Client 5]", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 5]" },
+      { client: "[Client 6]", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 6]" },
+      { client: "[Client 7]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 7]" },
+      { client: "[Client 8]", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 8]" },
     ],
     stats: [
       { value: null, label: "vizualizări generate pentru clienți" },

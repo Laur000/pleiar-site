@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "videos": "powershell -ExecutionPolicy Bypass -File scripts/convert-videos.ps1"
   },
   "dependencies": {
     "lenis": "^1.3.27",

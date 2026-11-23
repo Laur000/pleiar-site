@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { site } from "@/content/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
@@ -39,11 +40,30 @@ export function YouTubeTop() {
                 <div className="relative">
                   <div className="relative aspect-video overflow-hidden rounded-[14px] border border-gray-900 bg-gray-900">
                     {v.youtubeId ? (
-                      <YouTubeLite youtubeId={v.youtubeId} title={v.title} playLabel={youtube.playLabel}>
+                      <YouTubeLite
+                        youtubeId={v.youtubeId}
+                        title={v.title}
+                        playLabel={youtube.playLabel}
+                        thumbnail={v.thumbnail}
+                      >
                         <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">
                           {v.duration}
                         </span>
                       </YouTubeLite>
+                    ) : v.thumbnail ? (
+                      // Doar thumbnail (fără link YouTube încă): imagine simplă, fără redare.
+                      <>
+                        <Image
+                          src={v.thumbnail}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover"
+                        />
+                        <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">
+                          {v.duration}
+                        </span>
+                      </>
                     ) : (
                       <div className="flex size-full items-center justify-center p-4 text-center text-sm text-gray-400">
                         {v.placeholder}

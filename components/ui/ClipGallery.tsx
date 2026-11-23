@@ -4,16 +4,20 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import type { Platform, SiteContent } from "@/content/site";
 import { ClipCard } from "@/components/ui/ClipCard";
+import { ClipLightbox } from "@/components/ui/ClipLightbox";
 import { EASE_SMOOTH, Reveal } from "@/components/motion/Reveal";
 
 type Props = { clients: SiteContent["clients"] };
+type Clip = SiteContent["clients"]["clips"][number];
 
 const transition = { duration: 0.45, ease: EASE_SMOOTH };
 
 /** Filtrele pe platformă + grid-ul de clipuri verticale, cu tranziție de layout la schimbarea filtrului. */
 export function ClipGallery({ clients }: Props) {
-  const { filters, clips, viewsLabel } = clients;
+  const { filters, clips, viewsLabel, player } = clients;
   const [active, setActive] = useState<Platform | null>(null);
+  // Clipul deschis pe tot ecranul (null = niciunul).
+  const [open, setOpen] = useState<Clip | null>(null);
 
   const options: { label: string; value: Platform | null }[] = [
     { label: filters.allLabel, value: null },
@@ -59,11 +63,18 @@ export function ClipGallery({ clients }: Props) {
               exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.25 } }}
               transition={{ ...transition, delay: (i % 4) * 0.06, layout: transition }}
             >
-              <ClipCard clip={clip} viewsLabel={viewsLabel} />
+              <ClipCard
+                clip={clip}
+                viewsLabel={viewsLabel}
+                openLabel={player.openLabel}
+                onOpen={() => setOpen(clip)}
+              />
             </motion.li>
           ))}
         </AnimatePresence>
       </ul>
+
+      <ClipLightbox clip={open} labels={player} viewsLabel={viewsLabel} onClose={() => setOpen(null)} />
     </div>
   );
 }

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# clipurile originale (mari): doar local, nu intra în git / pe Vercel
+/public/raw/
