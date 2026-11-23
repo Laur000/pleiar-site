@@ -81,6 +81,8 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
+    /* ancorele nu ajung sub meniul sticky */
+    scroll-padding-top: 72px;
   }
   body {
     font-size: 16px;

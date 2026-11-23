@@ -1,13 +1,13 @@
-import Link from "next/link";
+import { Nav } from "@/components/sections/Nav";
+import { Hero } from "@/components/sections/Hero";
 
-// Pagina principală se construiește în Etapa 3 (vezi PLAN.md).
-// Până atunci, design system-ul se verifică la /style.
 export default function Home() {
   return (
-    <main className="container-site section-y">
-      <Link href="/style" className="eyebrow text-yellow underline">
-        /style
-      </Link>
-    </main>
+    <>
+      <Nav />
+      <main>
+        <Hero />
+      </main>
+    </>
   );
 }
