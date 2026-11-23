@@ -1,5 +1,5 @@
 import type { Stat } from "@/content/site";
-import { formatNumber } from "@/lib/format";
+import { CountUp } from "@/components/motion/CountUp";
 
 type Props = {
   stats: Stat[];
@@ -39,7 +39,7 @@ export function StatList({
               isLarge ? "text-[44px] md:text-[52px]" : "text-[28px] sm:text-4xl"
             }`}
           >
-            {formatNumber(s.value, s.suffix)}
+            <CountUp value={s.value} suffix={s.suffix} />
           </dd>
         </div>
       ))}

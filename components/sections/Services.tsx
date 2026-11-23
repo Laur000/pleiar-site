@@ -1,5 +1,7 @@
 import { site } from "@/content/site";
 import { Card } from "@/components/ui/Card";
+import { SectionHeader } from "@/components/ui/SectionHeader";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export function Services() {
   const { services } = site;
@@ -7,19 +9,19 @@ export function Services() {
   return (
     <section id="servicii" className="surface-light section-y" aria-labelledby="servicii-titlu">
       <div className="container-site flex flex-col gap-12">
-        <div className="flex max-w-[760px] flex-col gap-4">
-          <p className="eyebrow">{services.eyebrow}</p>
-          <h2 id="servicii-titlu" className="text-h2">
-            {services.title}
-          </h2>
-        </div>
+        <SectionHeader
+          id="servicii-titlu"
+          eyebrow={services.eyebrow}
+          title={services.title}
+          className="max-w-[760px]"
+        />
 
-        <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <RevealGroup as="ul" className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
           {services.items.map((s) => {
             const f = s.featured;
             return (
-              <li key={s.num}>
-                <Card tone={f ? "dark" : "light"} className="flex h-full flex-col gap-[18px]">
+              <RevealItem as="li" key={s.num}>
+                <Card tone={f ? "dark" : "light"} className="tile flex h-full flex-col gap-[18px]">
                   <div className="flex min-h-7 items-center justify-between gap-3">
                     <span className="font-display text-[15px] font-semibold">{s.num}</span>
                     {f && (
@@ -49,10 +51,10 @@ export function Services() {
                     {services.pricePrefix} {s.price}
                   </p>
                 </Card>
-              </li>
+              </RevealItem>
             );
           })}
-        </ul>
+        </RevealGroup>
       </div>
     </section>
   );

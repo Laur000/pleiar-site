@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { site } from "@/content/site";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,7 +30,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="ro"
       className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
     >
-      <body className="surface-dark min-h-dvh font-sans">{children}</body>
+      <body className="surface-dark min-h-dvh font-sans">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

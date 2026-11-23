@@ -101,6 +101,32 @@
       animation: none;
     }
   }
+
+  /* Hover pe carduri: ridicare 6px + rotire -0.4deg */
+  .tile {
+    transition: transform 0.35s var(--ease-smooth);
+  }
+  @media (hover: hover) {
+    .tile:hover {
+      transform: translateY(-6px) rotate(-0.4deg);
+    }
+  }
+}
+
+/*
+ * „Mai puține animații”: toate elementele animate cu Motion (data-reveal)
+ * sunt forțate în starea finală, fără tranziții.
+ */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .tile,
+  .tile:hover {
+    transition: none;
+    transform: none;
+  }
 }
 
 @layer base {

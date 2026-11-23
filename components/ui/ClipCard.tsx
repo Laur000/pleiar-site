@@ -43,7 +43,7 @@ export function ClipCard({ clip, viewsLabel }: Props) {
   );
 
   const className =
-    "flex h-full flex-col gap-3 rounded-[18px] bg-black p-2.5 text-pure-white [--focus-color:var(--color-black)]";
+    "tile flex h-full flex-col gap-3 rounded-[18px] bg-black p-2.5 text-pure-white [--focus-color:var(--color-black)]";
   const hoverProps = {
     onMouseEnter: () => setHovered(true),
     onMouseLeave: () => setHovered(false),
