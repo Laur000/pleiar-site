@@ -48,6 +48,9 @@ export type SiteContent = {
     description: string;
     /** Domeniul final, ex. „https://pleiar.ro”. Folosit la SEO și sitemap. */
     siteUrl: Url;
+    siteName: string;
+    /** Textul alternativ al imaginii de share (Open Graph). */
+    shareImageAlt: string;
   };
   social: SocialLinks;
   nav: {
@@ -173,6 +176,9 @@ export const site: SiteContent = {
     description:
       "Facem clipuri pe care oamenii chiar le privesc până la capăt. Filmare, editare video și administrare social media pentru branduri și creatori.",
     siteUrl: null, // [domeniul, ex. https://pleiar.ro]
+    siteName: "Pleiar",
+    shareImageAlt:
+      "PLEIAR – Facem clipuri pe care oamenii chiar le privesc până la capăt.",
   },
 
   social: {

@@ -1,0 +1,13 @@
+import type { MetadataRoute } from "next";
+import { getSiteUrl } from "@/lib/site-url";
+
+// Site one-page: o singură adresă în sitemap.
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    {
+      url: new URL("/", getSiteUrl()).toString(),
+      changeFrequency: "monthly",
+      priority: 1,
+    },
+  ];
+}
