@@ -78,6 +78,31 @@
   --focus-color: var(--color-black);
 }
 
+/* Banda marquee: 28s, liniar, infinit; se oprește la hover */
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@layer components {
+  .marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee-slide 28s linear infinite;
+  }
+  .marquee-wrap:hover .marquee {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      animation: none;
+    }
+  }
+}
+
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
