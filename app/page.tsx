@@ -5,6 +5,8 @@ import { About } from "@/components/sections/About";
 import { YouTubeTop } from "@/components/sections/YouTubeTop";
 import { Clients } from "@/components/sections/Clients";
 import { Services } from "@/components/sections/Services";
+import { Contact } from "@/components/sections/Contact";
+import { Footer } from "@/components/sections/Footer";
 
 export default function Home() {
   return (
@@ -17,7 +19,9 @@ export default function Home() {
         <YouTubeTop />
         <Clients />
         <Services />
+        <Contact />
       </main>
+      <Footer />
     </>
   );
 }
