@@ -10,8 +10,7 @@ import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
-// Titlul, descrierea și imaginea de share proprii vin în Etapa 5 (SEO pe fiecare pagină).
-export const metadata: Metadata = pageMetadata("/");
+export const metadata: Metadata = pageMetadata("/", site.agency.meta);
 
 /** Pagina „/” – Agenția, pentru branduri. */
 export default function AgencyPage() {
@@ -19,7 +18,7 @@ export default function AgencyPage() {
     <>
       <Nav page="agency" />
       <main id="top">
-        <Hero />
+        <Hero hero={site.agency.hero} />
         <Marquee marquee={site.agency.marquee} />
         <Founder />
         <Clients />

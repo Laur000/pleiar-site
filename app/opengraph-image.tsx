@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 import { loadDisplayFont } from "@/lib/og-font";
 
 // Imaginea care apare când cineva dă share la site (WhatsApp, Facebook, LinkedIn etc.).
-export const alt = site.meta.shareImageAlt;
+export const alt = site.agency.meta.shareImageAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

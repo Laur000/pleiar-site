@@ -1,6 +1,6 @@
-import type { SiteContent } from "@/content/site";
+import type { MarqueeContent } from "@/content/site";
 
-type Props = { marquee: SiteContent["agency"]["marquee"] };
+type Props = { marquee: MarqueeContent };
 
 /**
  * Bandă galbenă care se mișcă continuu (CSS pur, vezi `.marquee` în globals.css).

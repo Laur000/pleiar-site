@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type { SiteContent } from "@/content/site";
+import type { ShowreelContent } from "@/content/site";
 
-type Props = { showreel: SiteContent["agency"]["hero"]["showreel"] };
+type Props = { showreel: ShowreelContent };
 
 function PlayIcon({ size = 30 }: { size?: number }) {
   return (

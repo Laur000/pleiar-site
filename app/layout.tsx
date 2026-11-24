@@ -20,26 +20,15 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-// Imaginea de share (app/opengraph-image.tsx) și iconițele (app/icon.tsx, app/apple-icon.tsx)
-// sunt adăugate automat de Next.js.
+// Valorile de bază (ex. pentru pagina 404). Fiecare pagină își pune titlul, descrierea,
+// adresa canonică și Open Graph prin `pageMetadata()` (lib/page-metadata.ts).
+// Imaginile de share (opengraph-image.tsx din fiecare folder) și iconițele (app/icon.tsx,
+// app/apple-icon.tsx) sunt adăugate automat de Next.js.
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
-  title: site.meta.title,
-  description: site.meta.description,
+  title: site.agency.meta.title,
+  description: site.agency.meta.description,
   applicationName: site.meta.siteName,
-  // Adresa canonică (`alternates`) și `openGraph.url` le setează fiecare pagină.
-  openGraph: {
-    type: "website",
-    locale: "ro_RO",
-    siteName: site.meta.siteName,
-    title: site.meta.title,
-    description: site.meta.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: site.meta.title,
-    description: site.meta.description,
-  },
 };
 
 export const viewport: Viewport = {

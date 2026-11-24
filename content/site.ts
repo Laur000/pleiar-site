@@ -72,15 +72,51 @@ export type ServicesContent = {
   }[];
 };
 
+/** Ce apare în Google și când cineva dă share la pagină (WhatsApp, Facebook etc.). */
+export type PageMeta = {
+  /** Titlul din Google și din tab-ul browserului. Ideal sub 60 de caractere. */
+  title: string;
+  /** Descrierea din Google. Ideal 120–160 de caractere. */
+  description: string;
+  /** Textul alternativ al imaginii de share. */
+  shareImageAlt: string;
+};
+
+/** Showreel 16:9 din hero. */
+export type ShowreelContent = {
+  /** MP4 în public/videos/, ex. „/videos/showreel.mp4”. */
+  src: Url;
+  /** Imagine WebP în public/posters/. */
+  poster: Url;
+  placeholder: string;
+  soundOnLabel: string;
+  soundOffLabel: string;
+};
+
+/** Primul ecran al unei pagini. */
+export type HeroContent = {
+  eyebrow: string;
+  /** Titlul e împărțit ca să știm ce parte primește marker-ul galben. */
+  title: { before: string; highlight: string; after: string };
+  subtitle: string;
+  primaryCta: Link;
+  secondaryCta: Link;
+  /** `null` = hero fără video (doar text). */
+  showreel: ShowreelContent | null;
+};
+
+/** Banda galbenă care se mișcă. */
+export type MarqueeContent = {
+  items: string[];
+  separator: string;
+};
+
 export type SiteContent = {
+  /** Comun pentru tot site-ul. Titlul și descrierea sunt pe fiecare pagină (`agency.meta`, `creators.meta`). */
   meta: {
-    title: string;
-    description: string;
     /** Domeniul final, ex. „https://pleiar.ro”. Folosit la SEO și sitemap. */
     siteUrl: Url;
     siteName: string;
-    /** Textul alternativ al imaginii de share (Open Graph). */
-    shareImageAlt: string;
   };
   social: SocialLinks;
   nav: {
@@ -109,27 +145,9 @@ export type SiteContent = {
   agency: {
     /** Linkurile din meniu pentru pagina asta (secțiunile ei). */
     navLinks: Link[];
-    hero: {
-      eyebrow: string;
-      /** Titlul e împărțit ca să știm ce parte primește marker-ul galben. */
-      title: { before: string; highlight: string; after: string };
-      subtitle: string;
-      primaryCta: Link;
-      secondaryCta: Link;
-      showreel: {
-        /** MP4 în public/videos/, ex. „/videos/showreel.mp4”. */
-        src: Url;
-        /** Imagine WebP în public/posters/. */
-        poster: Url;
-        placeholder: string;
-        soundOnLabel: string;
-        soundOffLabel: string;
-      };
-    };
-    marquee: {
-      items: string[];
-      separator: string;
-    };
+    meta: PageMeta;
+    hero: HeroContent;
+    marquee: MarqueeContent;
     /** „Cine e în spate”: rezumatul despre tine, cu link spre pagina de creatori. */
     founder: {
       eyebrow: string;
@@ -187,6 +205,9 @@ export type SiteContent = {
   creators: {
     /** Linkurile din meniu pentru pagina asta (secțiunile ei). */
     navLinks: Link[];
+    meta: PageMeta;
+    hero: HeroContent;
+    marquee: MarqueeContent;
     about: {
       eyebrow: string;
       title: string;
@@ -238,13 +259,8 @@ const YOUTUBE_SUBSCRIBERS: Stat = { value: null, label: "abonați YouTube" };
 
 export const site: SiteContent = {
   meta: {
-    title: "Pleiar – vlogger, editor video și agenție de social media",
-    description:
-      "Facem clipuri pe care oamenii chiar le privesc până la capăt. Filmare, editare video și administrare social media pentru branduri și creatori.",
     siteUrl: null, // [domeniul, ex. https://pleiar.ro]
     siteName: "Pleiar",
-    shareImageAlt:
-      "PLEIAR – Facem clipuri pe care oamenii chiar le privesc până la capăt.",
   },
 
   social: {
@@ -284,6 +300,14 @@ export const site: SiteContent = {
       { label: "Clienți", href: "#clienti" },
       { label: "Ce oferim", href: "#servicii" },
     ],
+
+    meta: {
+      title: "Pleiar – agenție de video și social media pentru branduri",
+      description:
+        "Facem clipuri pe care oamenii chiar le privesc până la capăt. Filmare, editare video și administrare social media pentru branduri.",
+      shareImageAlt:
+        "PLEIAR – Facem clipuri pe care oamenii chiar le privesc până la capăt.",
+    },
 
     hero: {
       eyebrow: "Vlogger · Editor · Agenție",
@@ -413,6 +437,33 @@ export const site: SiteContent = {
       { label: "Top 3", href: "#youtube" },
       { label: "Ce editez", href: "#servicii" },
     ],
+
+    meta: {
+      title: "Pleiar – editare vloguri, podcasturi și stream-uri",
+      description:
+        "Editez vloguri, podcasturi și stream-uri pentru creatori, cu ritmul învățat pe propriul canal de YouTube. Tu filmezi, eu fac restul.",
+      shareImageAlt: "PLEIAR – Tu filmezi. Eu editez ca să fie privit până la capăt.",
+    },
+
+    hero: {
+      eyebrow: "Vlogger · Editor",
+      title: {
+        before: "Tu filmezi.",
+        highlight: "Eu editez",
+        after: "ca să fie privit până la capăt.",
+      },
+      subtitle:
+        "Vloguri, podcasturi și stream-uri editate de un creator care face asta și pe propriul canal de YouTube.",
+      primaryCta: { label: "Cere o ofertă", href: "#contact" },
+      secondaryCta: { label: "Vezi ce editez", href: "#servicii" },
+      // Fără video aici: dovada sunt clipurile din „Top 3”. Poți pune un showreel ca la Agenție.
+      showreel: null,
+    },
+
+    marquee: {
+      items: ["VLOGURI", "PODCASTURI", "STREAM-URI", "TWITCH", "SHORTS", "YOUTUBE"],
+      separator: "✦",
+    },
 
     about: {
       eyebrow: "01 · Omul din spatele camerei",
