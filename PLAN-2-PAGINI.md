@@ -40,14 +40,26 @@ cu adrese proprii și trecere instant) · linkurile secțiunilor paginii curente
 
 ## Etape (una câte una, commit doar după aprobare)
 
-1. **Structura** – `content/site.ts` împărțit în comun / agenție / creatori; pagina `/youtube`; meniul cu comutator. Pagina Agenție fără Despre și fără Top 3.
-2. **„Cine e în spate”** pe pagina Agenție.
-3. **Pagina Creatori** – hero, marquee, Despre, Top 3.
-4. **Ce editez pentru creatori** + contact pentru creatori.
-5. **SEO pe fiecare pagină** – titlu, descriere și imagine de share separate; sitemap cu 2 adrese.
-6. **Verificare** la 375 / 768 / 1440, lint, build.
+1. ✅ **Structura** – `content/site.ts` împărțit în comun / agenție / creatori; pagina `/youtube`; meniul cu comutator. Pagina Agenție fără Despre și fără Top 3. (`2df7e5e`)
+2. ✅ **„Cine e în spate”** pe pagina Agenție. (`41c49ff`)
+3. ✅ **Pagina Creatori** – hero, marquee, Despre, Top 3. (`97627ab`)
+4. ✅ **Ce editez pentru creatori** – Vloguri, Podcasturi, Stream-uri. (în `2df7e5e`) Contactul e deocamdată comun pentru ambele pagini.
+5. ✅ **SEO pe fiecare pagină** – titlu, descriere și imagine de share separate; sitemap cu 2 adrese. (`de951d0`)
+6. ✅ **Verificare** – ambele pagini la 375 / 768 / 1024 / 1440: fără scroll lateral, un singur H1, tabul activ corect,
+   toate linkurile din meniu se opresc sub bara de sus, meniul de mobil se închide, imaginile se încarcă,
+   fără erori în consolă; lint + build trec; meta-tag-urile și imaginile de share verificate pe build-ul de producție.
 
-## De decis pe parcurs
+## Decizii luate
 
-- Numele din comutator: `Agenție | Creatori` (propus – spune pentru cine e) sau `Agenție | YouTube`.
-- Textele noi (titluri, servicii pentru creatori) le scriu ca propunere, marcate; cifrele și prețurile rămân `[placeholder]`.
+- Comutatorul: `Agenție | Creatori`.
+- Sub 1024px meniul complet devine hamburger (comutatorul rămâne vizibil), ca să încapă pe tabletă.
+- Hero-ul de la Creatori e fără showreel (dovada sunt clipurile din Top 3). Se poate adăuga: `creators.hero.showreel`.
+- Portretul și abonații YouTube stau într-un singur loc (`PORTRAIT`, `YOUTUBE_SUBSCRIBERS` în `content/site.ts`).
+
+## Ce mai rămâne (de la tine)
+
+- Textele marcate `[...]`: despre tine (Agenție și Creatori), cifre, prețuri, email, link de programare.
+- Textele propuse de mine, de verificat/schimbat: titlul „Cine e în spate”, hero-ul și descrierile de la Creatori,
+  titlurile și descrierile pentru Google (`agency.meta`, `creators.meta`).
+- Opțional: un contact cu text diferit pentru creatori (acum e același pe ambele pagini).
+- Înainte de lansare: conținutul real (clipuri, poze, logo-uri), ștergerea paginii `/style`, domeniul.
