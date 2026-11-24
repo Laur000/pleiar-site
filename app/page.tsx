@@ -1,24 +1,27 @@
+import type { Metadata } from "next";
+import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/page-metadata";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
-import { About } from "@/components/sections/About";
-import { YouTubeTop } from "@/components/sections/YouTubeTop";
 import { Clients } from "@/components/sections/Clients";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
-export default function Home() {
+// Titlul, descrierea și imaginea de share proprii vin în Etapa 5 (SEO pe fiecare pagină).
+export const metadata: Metadata = pageMetadata("/");
+
+/** Pagina „/” – Agenția, pentru branduri. */
+export default function AgencyPage() {
   return (
     <>
-      <Nav />
-      <main>
+      <Nav page="agency" />
+      <main id="top">
         <Hero />
-        <Marquee />
-        <About />
-        <YouTubeTop />
+        <Marquee marquee={site.agency.marquee} />
         <Clients />
-        <Services />
+        <Services services={site.agency.services} />
         <Contact />
       </main>
       <Footer />

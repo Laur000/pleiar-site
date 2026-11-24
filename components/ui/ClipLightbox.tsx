@@ -6,11 +6,11 @@ import { buttonClasses } from "@/components/ui/Button";
 import { formatNumber } from "@/lib/format";
 import { isExternal } from "@/lib/links";
 
-type Clip = SiteContent["clients"]["clips"][number];
+type Clip = SiteContent["agency"]["clients"]["clips"][number];
 
 type Props = {
   clip: Clip | null;
-  labels: SiteContent["clients"]["player"];
+  labels: SiteContent["agency"]["clients"]["player"];
   viewsLabel: string;
   onClose: () => void;
 };

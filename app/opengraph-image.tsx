@@ -13,7 +13,9 @@ const GRAY = "#BDBDBD";
 
 export default async function OpengraphImage() {
   const font = await loadDisplayFont();
-  const { hero, nav, marquee } = site;
+  // Imaginea comună e cea a agenției (pagina principală); fiecare pagină primește a ei în Etapa 5.
+  const { nav } = site;
+  const { hero, marquee } = site.agency;
   // „✦” nu există în Space Grotesk, deci în imagine separatorul e desenat ca SVG.
   const band = [...marquee.items, ...marquee.items];
 

@@ -1,10 +1,23 @@
-import { site } from "@/content/site";
+import type { ServicesContent } from "@/content/site";
 import { Card } from "@/components/ui/Card";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
-export function Services() {
-  const { services } = site;
+type Props = { services: ServicesContent };
+
+/**
+ * Coloanele pe ecran lat, după câte carduri sunt: 4 → 4 pe rând, altfel 3 pe rând
+ * (3 → un rând plin; 5–6 → două rânduri), ca să nu rămână un card singur pe un rând gol.
+ */
+function wideColumns(count: number) {
+  return count === 4 ? "xl:grid-cols-4" : "lg:grid-cols-3";
+}
+
+/** Pe tabletă (2 coloane), dacă numărul de carduri e impar, ultimul ocupă tot rândul. */
+const ODD_LAST_FULL = "md:max-lg:[&>li:last-child:nth-child(odd)]:col-span-2";
+
+/** Carduri de servicii cu preț. Folosită pe ambele pagini, fiecare cu datele ei. */
+export function Services({ services }: Props) {
 
   return (
     <section id="servicii" className="surface-light section-y" aria-labelledby="servicii-titlu">
@@ -16,7 +29,10 @@ export function Services() {
           className="max-w-[760px]"
         />
 
-        <RevealGroup as="ul" className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <RevealGroup
+          as="ul"
+          className={`grid grid-cols-1 gap-5 md:grid-cols-2 ${ODD_LAST_FULL} ${wideColumns(services.items.length)}`}
+        >
           {services.items.map((s) => {
             const f = s.featured;
             return (

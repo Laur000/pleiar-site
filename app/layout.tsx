@@ -27,11 +27,10 @@ export const metadata: Metadata = {
   title: site.meta.title,
   description: site.meta.description,
   applicationName: site.meta.siteName,
-  alternates: { canonical: "/" },
+  // Adresa canonică (`alternates`) și `openGraph.url` le setează fiecare pagină.
   openGraph: {
     type: "website",
     locale: "ro_RO",
-    url: "/",
     siteName: site.meta.siteName,
     title: site.meta.title,
     description: site.meta.description,

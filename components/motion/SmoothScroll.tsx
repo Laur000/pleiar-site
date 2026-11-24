@@ -3,12 +3,12 @@
 import Lenis from "lenis";
 import { useEffect } from "react";
 
-/** Înălțimea meniului sticky: ancorele se opresc sub el. */
-const NAV_OFFSET = -72;
-
 /**
  * Scroll lin cu Lenis pe toată pagina.
  * Dacă utilizatorul are „mai puține animații” activ, Lenis nu pornește deloc.
+ *
+ * Ancorele se opresc sub meniul sticky datorită `scroll-padding-top` din globals.css.
+ * Lenis îl citește singur, deci NU îi dăm și `offset` (s-ar aduna de două ori).
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -17,7 +17,7 @@ export function SmoothScroll() {
     const lenis = new Lenis({
       autoRaf: true,
       lerp: 0.1,
-      anchors: { offset: NAV_OFFSET },
+      anchors: true,
     });
 
     return () => lenis.destroy();

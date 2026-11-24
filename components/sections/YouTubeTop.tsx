@@ -8,7 +8,8 @@ import { formatNumber } from "@/lib/format";
 import { hrefOr, isExternal } from "@/lib/links";
 
 export function YouTubeTop() {
-  const { youtube, social } = site;
+  const { social } = site;
+  const { youtube } = site.creators;
   const channel = social.youtube.href;
 
   return (

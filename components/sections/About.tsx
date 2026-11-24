@@ -4,7 +4,7 @@ import { StatList } from "@/components/ui/StatList";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export function About() {
-  const { about } = site;
+  const { about } = site.creators;
 
   return (
     <section id="despre" className="surface-light section-y" aria-labelledby="despre-titlu">

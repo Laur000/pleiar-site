@@ -6,7 +6,7 @@ import { ClipVideo } from "@/components/ui/ClipVideo";
 import { formatNumber } from "@/lib/format";
 import { isExternal } from "@/lib/links";
 
-type Clip = SiteContent["clients"]["clips"][number];
+type Clip = SiteContent["agency"]["clients"]["clips"][number];
 
 type Props = {
   clip: Clip;

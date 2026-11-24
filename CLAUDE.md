@@ -1,7 +1,9 @@
 # Pleiar – site portofoliu (vlog + editare video + agenție de marketing)
 
-Site one-page, în limba română, pentru Pleiar: vlogger pe YouTube care are și o agenție ce filmează, editează și administrează social media pentru clienți.
-Scopul site-ului: un client nou vede omul, vede rezultatele (views) și cere o ofertă.
+Site în limba română, pentru Pleiar: vlogger pe YouTube care are și o agenție ce filmează, editează și administrează social media pentru clienți.
+Are **două pagini**, pentru două publicuri (planul: `PLAN-2-PAGINI.md`; varianta veche one-page e în branch-ul `varianta-o-pagina`):
+- `/` – **Agenție**, pentru branduri: vede rezultatele clienților (views) și cere o ofertă.
+- `/youtube` – **Creatori** (vlogueri, podcasteri, streameri): vede canalul lui Pleiar ca dovadă și cere editare pentru propriul content.
 
 Referința vizuală e prototipul din `reference/prototip-galben.dc.html` (varianta „galben, negru, alb”).
 E scris într-un format de prototipare (`<x-dc>`, `{{hole}}`, `<sc-for>`): folosește-l DOAR ca referință de layout, culori, texte și ordine a secțiunilor. Nu copia sintaxa lui.
@@ -51,17 +53,27 @@ Forme:
 - Carduri: radius 18–20px; pe secțiunile deschise au contur negru de 2px
 - Container: max-width 1240px, padding lateral 24px, secțiuni cu ~104px padding vertical
 
-## Structura paginii (în ordinea asta)
+## Structura paginilor (în ordinea asta)
 
-1. **Nav** sticky, negru: logo „PLEIAR” pe pastilă galbenă; linkuri Despre / YouTube / Clienți / Ce oferim; buton galben „Hai să lucrăm”. Pe mobil: meniu hamburger.
-2. **Hero** negru: eticheta „Vlogger · Editor · Agenție”, H1 cu „chiar le privesc” evidențiat cu galben (stil marker), subtitlu, 2 butoane, showreel 16:9 (video mut, autoplay, loop, cu buton de sunet).
-3. **Bandă marquee** galbenă cu bordură neagră: „EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦”, se mișcă continuu.
-4. **Despre** pe alb: portret cu umbră galbenă decalată (bloc galben în spate), „Salut, sunt Pleiar.”, 2 paragrafe, 3 cifre (abonați, vizualizări, clipuri editate) cu linie neagră groasă deasupra.
-5. **Top 3 YouTube** pe negru: 3 carduri 16:9 cu număr 1-2-3 în cerc galben, titlu, vizualizări în galben. Embed YouTube „lite” (se încarcă iframe-ul doar la click).
-6. **Clienți** pe galben: grid de logo-uri, filtre pe platformă (Toate / TikTok / Instagram / YouTube Shorts), grid de clipuri verticale 9:16 pe carduri negre cu bandă galbenă „[X] views”, apoi 3 cifre totale.
-7. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”.
-8. **Contact** pe galben: titlu uriaș „Ai ceva de filmat? Hai să vorbim.”, buton negru „Programează un call”, email.
-9. **Footer** negru: copyright + YouTube / Instagram / TikTok.
+**Nav** (comun) sticky, negru: logo „PLEIAR” pe pastilă galbenă; comutator-pastilă între pagini (`Agenție | Creatori`, cu `aria-current` pe pagina activă); linkurile secțiunilor paginii curente; buton galben „Hai să lucrăm”. Pe mobil: meniu hamburger (comutatorul rămâne vizibil).
+
+### `/` – Agenție (branduri)
+1. **Hero** negru: eticheta „Vlogger · Editor · Agenție”, H1 cu „chiar le privesc” evidențiat cu galben (stil marker), subtitlu, 2 butoane, showreel 16:9 (video mut, autoplay, loop, cu buton de sunet).
+2. **Bandă marquee** galbenă cu bordură neagră: „EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦”, se mișcă continuu.
+3. **Cine e în spate** (rezumat): mini-portret, 2 fraze, cifra de abonați, link spre `/youtube`.
+4. **Clienți** pe galben: grid de logo-uri, filtre pe platformă (Toate / TikTok / Instagram / YouTube Shorts), grid de clipuri verticale 9:16 pe carduri negre cu bandă galbenă „[X] views”, apoi 3 cifre totale. Click pe clip: player pe tot ecranul, cu sunet.
+5. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”.
+6. **Contact** pe galben: titlu uriaș „Ai ceva de filmat? Hai să vorbim.”, buton negru „Programează un call”, email.
+7. **Footer** negru: copyright + YouTube / Instagram / TikTok.
+
+### `/youtube` – Creatori (vlogueri, podcasteri, streameri)
+1. **Hero** negru pentru creatori: titlu și subtitlu proprii, buton spre contact.
+2. **Bandă marquee** cu cuvintele creatorilor (VLOGURI ✦ PODCASTURI ✦ TWITCH ✦ SHORTS …).
+3. **Despre** pe alb: portret cu umbră galbenă decalată (bloc galben în spate), „Salut, sunt Pleiar.”, 2 paragrafe, 3 cifre (abonați, vizualizări, clipuri editate) cu linie neagră groasă deasupra.
+4. **Top 3 YouTube** pe negru: 3 carduri 16:9 cu număr 1-2-3 în cerc galben, titlu, vizualizări în galben. Embed YouTube „lite” (se încarcă iframe-ul doar la click).
+5. **Ce editez pentru creatori** pe alb: carduri de servicii (ex. vloguri, podcasturi, stream-uri/Twitch, Shorts din long-form), prețuri `[PREȚ]`.
+6. **Contact** pe galben, cu titlu pentru creatori.
+7. **Footer** negru (comun).
 
 ## Conținut
 
@@ -92,6 +104,6 @@ Unde lipsește o informație, folosește un placeholder vizibil între paranteze
 
 - Mobile-first; verifică la 375px, 768px și 1440px.
 - Accesibilitate: HTML semantic, `<button>`/`<a>` reale, `aria-pressed` pe filtre, `alt` pe imagini, contrast ≥ 4.5:1, focus vizibil (contur galben pe negru, negru pe galben).
-- SEO: `metadata` în română, Open Graph cu imagine 1200×630, `lang="ro"`, sitemap.
+- SEO: `metadata` în română pe fiecare pagină (titlu, descriere și imagine Open Graph 1200×630 proprii), `lang="ro"`, sitemap cu ambele adrese.
 - Lighthouse țintă: Performance ≥ 90 pe mobil, Accessibility ≥ 95.
 - Componente mici, câte una per secțiune, în `components/sections/`.

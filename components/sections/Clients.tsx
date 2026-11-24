@@ -6,7 +6,7 @@ import { StatList } from "@/components/ui/StatList";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 export function Clients() {
-  const { clients } = site;
+  const { clients } = site.agency;
 
   return (
     <section id="clienti" className="surface-yellow section-y" aria-labelledby="clienti-titlu">

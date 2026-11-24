@@ -1,12 +1,14 @@
-import { site } from "@/content/site";
+import type { SiteContent } from "@/content/site";
+
+type Props = { marquee: SiteContent["agency"]["marquee"] };
 
 /**
  * Bandă galbenă care se mișcă continuu (CSS pur, vezi `.marquee` în globals.css).
  * Textul e repetat de 4 ori: animația mută jumătate din bandă, deci bucla e fără cusătură
- * și acoperă și ecranele late.
+ * și acoperă și ecranele late. Primește cuvintele paginii pe care e pusă.
  */
-export function Marquee() {
-  const { items, separator } = site.marquee;
+export function Marquee({ marquee }: Props) {
+  const { items, separator } = marquee;
   const line = items.map((item) => `${item} ${separator}`).join(" ");
 
   return (

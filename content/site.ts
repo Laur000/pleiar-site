@@ -44,6 +44,27 @@ export type SocialLinks = {
   tiktok: Link;
 };
 
+/**
+ * O secțiune de servicii (carduri cu preț). Aceeași formă pe ambele pagini.
+ * Poți adăuga sau șterge oricâte carduri în `items`; grila se aranjează singură.
+ */
+export type ServicesContent = {
+  eyebrow: string;
+  title: string;
+  /** Eticheta de pe cardul cu `featured: true` (ex. „Cel mai cerut”). */
+  featuredLabel: string;
+  pricePrefix: string;
+  items: {
+    num: string;
+    title: string;
+    description: string;
+    features: string[];
+    price: string;
+    /** Card negru cu galben, evidențiat. De obicei unul singur. */
+    featured: boolean;
+  }[];
+};
+
 export type SiteContent = {
   meta: {
     title: string;
@@ -57,118 +78,16 @@ export type SiteContent = {
   social: SocialLinks;
   nav: {
     logo: string;
-    links: Link[];
+    /** Comutatorul dintre cele două pagini (arată ca taburi). */
+    pages: {
+      ariaLabel: string;
+      agency: Link;
+      creators: Link;
+    };
     cta: Link;
     ariaLabel: string;
     openMenuLabel: string;
     closeMenuLabel: string;
-  };
-  hero: {
-    eyebrow: string;
-    /** Titlul e împărțit ca să știm ce parte primește marker-ul galben. */
-    title: { before: string; highlight: string; after: string };
-    subtitle: string;
-    primaryCta: Link;
-    secondaryCta: Link;
-    showreel: {
-      /** MP4 în public/videos/, ex. „/videos/showreel.mp4”. */
-      src: Url;
-      /** Imagine WebP în public/posters/. */
-      poster: Url;
-      placeholder: string;
-      soundOnLabel: string;
-      soundOffLabel: string;
-    };
-  };
-  marquee: {
-    items: string[];
-    separator: string;
-  };
-  about: {
-    eyebrow: string;
-    title: string;
-    paragraphs: string[];
-    portrait: {
-      /** Imagine 4:5 în public/images/. */
-      src: Url;
-      alt: string;
-      placeholder: string;
-    };
-    stats: Stat[];
-  };
-  youtube: {
-    eyebrow: string;
-    title: string;
-    subscribeLabel: string;
-    viewsLabel: string;
-    playLabel: string;
-    videos: {
-      /** ID-ul din link: youtube.com/watch?v=ACESTA */
-      youtubeId: string | null;
-      /** Thumbnail propriu 16:9 în public/images/youtube/. Dacă e `null`, se ia cel de la YouTube. */
-      thumbnail: Url;
-      title: string;
-      views: number | null;
-      /** Ex. „12:34”. */
-      duration: string;
-      placeholder: string;
-    }[];
-  };
-  clients: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    logos: {
-      name: string;
-      /** SVG/PNG transparent în public/logos/. */
-      src: Url;
-    }[];
-    filters: {
-      ariaLabel: string;
-      allLabel: string;
-      platforms: Platform[];
-    };
-    viewsLabel: string;
-    /** Player-ul care se deschide pe tot ecranul, cu sunet, la click pe un clip. */
-    player: {
-      openLabel: string;
-      closeLabel: string;
-      /** Citit de cititoarele de ecran cât timp clipul se încarcă. */
-      loadingLabel: string;
-      /** Butonul spre clipul original (apare doar dacă clipul are `href`). */
-      originalLabel: string;
-    };
-    clips: {
-      client: string;
-      platform: Platform;
-      /** Ce am făcut pentru client. */
-      what: string;
-      views: number | null;
-      /** Preview mut pentru card (public/videos/nume.mp4, făcut de `npm run videos`). */
-      video: Url;
-      /** Versiunea HD cu sunet, pentru ecran complet (public/videos/nume-hd.mp4). Dacă lipsește, se folosește preview-ul. */
-      videoHd: Url;
-      /** WebP în public/posters/. */
-      poster: Url;
-      /** Linkul spre clipul original (opțional). */
-      href: Url;
-      placeholder: string;
-    }[];
-    stats: Stat[];
-  };
-  services: {
-    eyebrow: string;
-    title: string;
-    featuredLabel: string;
-    pricePrefix: string;
-    items: {
-      num: string;
-      title: string;
-      description: string;
-      features: string[];
-      price: string;
-      featured: boolean;
-    }[];
   };
   contact: {
     title: string;
@@ -178,6 +97,112 @@ export type SiteContent = {
   };
   footer: {
     copyright: string;
+  };
+  /** Pagina „/” – Agenția, pentru branduri. */
+  agency: {
+    /** Linkurile din meniu pentru pagina asta (secțiunile ei). */
+    navLinks: Link[];
+    hero: {
+      eyebrow: string;
+      /** Titlul e împărțit ca să știm ce parte primește marker-ul galben. */
+      title: { before: string; highlight: string; after: string };
+      subtitle: string;
+      primaryCta: Link;
+      secondaryCta: Link;
+      showreel: {
+        /** MP4 în public/videos/, ex. „/videos/showreel.mp4”. */
+        src: Url;
+        /** Imagine WebP în public/posters/. */
+        poster: Url;
+        placeholder: string;
+        soundOnLabel: string;
+        soundOffLabel: string;
+      };
+    };
+    marquee: {
+      items: string[];
+      separator: string;
+    };
+    clients: {
+      eyebrow: string;
+      title: string;
+      intro: string;
+      logos: {
+        name: string;
+        /** SVG/PNG transparent în public/logos/. */
+        src: Url;
+      }[];
+      filters: {
+        ariaLabel: string;
+        allLabel: string;
+        platforms: Platform[];
+      };
+      viewsLabel: string;
+      /** Player-ul care se deschide pe tot ecranul, cu sunet, la click pe un clip. */
+      player: {
+        openLabel: string;
+        closeLabel: string;
+        /** Citit de cititoarele de ecran cât timp clipul se încarcă. */
+        loadingLabel: string;
+        /** Butonul spre clipul original (apare doar dacă clipul are `href`). */
+        originalLabel: string;
+      };
+      clips: {
+        client: string;
+        platform: Platform;
+        /** Ce am făcut pentru client. */
+        what: string;
+        views: number | null;
+        /** Preview mut pentru card (public/videos/nume.mp4, făcut de `npm run videos`). */
+        video: Url;
+        /** Versiunea HD cu sunet, pentru ecran complet (public/videos/nume-hd.mp4). Dacă lipsește, se folosește preview-ul. */
+        videoHd: Url;
+        /** WebP în public/posters/. */
+        poster: Url;
+        /** Linkul spre clipul original (opțional). */
+        href: Url;
+        placeholder: string;
+      }[];
+      stats: Stat[];
+    };
+    services: ServicesContent;
+  };
+  /** Pagina „/youtube” – pentru creatori (vlogueri, podcasteri, streameri). */
+  creators: {
+    /** Linkurile din meniu pentru pagina asta (secțiunile ei). */
+    navLinks: Link[];
+    about: {
+      eyebrow: string;
+      title: string;
+      paragraphs: string[];
+      portrait: {
+        /** Imagine 4:5 în public/images/. */
+        src: Url;
+        alt: string;
+        placeholder: string;
+      };
+      stats: Stat[];
+    };
+    youtube: {
+      eyebrow: string;
+      title: string;
+      subscribeLabel: string;
+      viewsLabel: string;
+      playLabel: string;
+      videos: {
+        /** ID-ul din link: youtube.com/watch?v=ACESTA */
+        youtubeId: string | null;
+        /** Thumbnail propriu 16:9 în public/images/youtube/. Dacă e `null`, se ia cel de la YouTube. */
+        thumbnail: Url;
+        title: string;
+        views: number | null;
+        /** Ex. „12:34”. */
+        duration: string;
+        placeholder: string;
+      }[];
+    };
+    /** „Ce editez pentru creatori”. */
+    services: ServicesContent;
   };
 };
 
@@ -204,158 +229,15 @@ export const site: SiteContent = {
 
   nav: {
     logo: "PLEIAR",
-    links: [
-      { label: "Despre", href: "#despre" },
-      { label: "YouTube", href: "#youtube" },
-      { label: "Clienți", href: "#clienti" },
-      { label: "Ce oferim", href: "#servicii" },
-    ],
+    pages: {
+      ariaLabel: "Alege pagina",
+      agency: { label: "Agenție", href: "/" },
+      creators: { label: "Creatori", href: "/youtube" },
+    },
     cta: { label: "Hai să lucrăm", href: "#contact" },
     ariaLabel: "Navigare principală",
     openMenuLabel: "Deschide meniul",
     closeMenuLabel: "Închide meniul",
-  },
-
-  hero: {
-    eyebrow: "Vlogger · Editor · Agenție",
-    title: {
-      before: "Facem clipuri pe care oamenii",
-      highlight: "chiar le privesc",
-      after: "până la capăt.",
-    },
-    subtitle:
-      "Am început cu propriul canal de YouTube. Acum filmăm, edităm și creștem conturile de social media ale clienților noștri.",
-    primaryCta: { label: "Vezi rezultatele", href: "#clienti" },
-    secondaryCta: { label: "Canalul de YouTube", href: "#youtube" },
-    showreel: {
-      src: "/videos/showreel.mp4", // TEST – de înlocuit
-      poster: "/posters/showreel.webp",
-      placeholder:
-        "[Showreel 60 s – video pe tot ecranul, pornește automat fără sunet]",
-      soundOnLabel: "Pornește sunetul",
-      soundOffLabel: "Oprește sunetul",
-    },
-  },
-
-  marquee: {
-    items: ["EDITARE", "FILMARE", "SOCIAL MEDIA", "VLOG", "REELS", "TIKTOK", "YOUTUBE"],
-    separator: "✦",
-  },
-
-  about: {
-    eyebrow: "01 · Omul din spatele camerei",
-    title: "Salut, sunt Pleiar.",
-    paragraphs: [
-      "[2–3 fraze despre tine: cum ai început canalul, ce fel de vloguri faci și de ce. Scrise la persoana I, pe tonul de pe canal.]",
-      "[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]",
-    ],
-    portrait: {
-      src: "/images/portret.jpg", // TEST – de înlocuit
-      alt: "Pleiar în culise, cu camera în mână",
-      placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
-    },
-    stats: [
-      { value: null, label: "abonați YouTube" },
-      { value: null, label: "vizualizări pe canal" },
-      { value: null, label: "clipuri editate" },
-    ],
-  },
-
-  youtube: {
-    eyebrow: "02 · De pe canalul meu",
-    title: "Top 3 clipuri de pe YouTube",
-    /** Butonul duce la linkul din `social.youtube`. */
-    subscribeLabel: "Abonează-te pe YouTube",
-    viewsLabel: "vizualizări",
-    playLabel: "Redă clipul",
-    videos: [
-      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 1]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 1]" },
-      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 2]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 2]" },
-      { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 3]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 3]" },
-    ],
-  },
-
-  clients: {
-    eyebrow: "03 · Agenția",
-    title: "Clienții noștri și clipurile care au mers",
-    intro:
-      "Filmăm și edităm pentru branduri și creatori pe TikTok, Instagram și YouTube. Cifrele sunt de pe conturile lor.",
-    logos: [
-      { name: "[Logo client 1]", src: null },
-      { name: "[Logo client 2]", src: null },
-      { name: "[Logo client 3]", src: null },
-      { name: "[Logo client 4]", src: null },
-      { name: "[Logo client 5]", src: null },
-      { name: "[Logo client 6]", src: null },
-    ],
-    filters: {
-      ariaLabel: "Filtrează după platformă",
-      allLabel: "Toate",
-      platforms: ["TikTok", "Instagram", "YouTube Shorts"],
-    },
-    viewsLabel: "views",
-    player: {
-      openLabel: "Vezi clipul cu sunet",
-      closeLabel: "Închide clipul",
-      loadingLabel: "Se încarcă clipul…",
-      originalLabel: "Vezi clipul original",
-    },
-    clips: [
-      { client: "[Client 1]", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 1]" },
-      { client: "[Client 2]", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 2]" },
-      { client: "[Client 3]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 3]" },
-      { client: "[Client 4]", platform: "TikTok", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 4]" },
-      { client: "[Client 5]", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 5]" },
-      { client: "[Client 6]", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 6]" },
-      { client: "[Client 7]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 7]" },
-      { client: "[Client 8]", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 8]" },
-    ],
-    stats: [
-      { value: null, label: "vizualizări generate pentru clienți" },
-      { value: null, label: "clienți activi" },
-      { value: null, label: "urmăritori câștigați de clienți" },
-    ],
-  },
-
-  services: {
-    eyebrow: "04 · Ce oferim",
-    title: "De la filmare la contul care crește",
-    featuredLabel: "Cel mai cerut",
-    pricePrefix: "de la",
-    items: [
-      {
-        num: "01",
-        title: "Editare video",
-        description: "Short-form și long-form, cu ritm construit pentru retenție.",
-        features: ["Reels, TikTok, Shorts", "Vloguri și clipuri YouTube", "Subtitrări, sound design, color"],
-        price: "[PREȚ]",
-        featured: false,
-      },
-      {
-        num: "02",
-        title: "Filmare",
-        description: "Venim cu echipamentul și filmăm conținut gata de editat.",
-        features: ["Zile de filmare pentru branduri", "Evenimente și behind the scenes", "Conținut pentru o lună într-o zi"],
-        price: "[PREȚ]",
-        featured: false,
-      },
-      {
-        num: "03",
-        title: "Social media & marketing",
-        description: "Strategie, calendar de postări și creștere organică.",
-        features: ["Strategie și idei de conținut", "Administrare conturi", "Rapoarte lunare cu rezultate"],
-        price: "[PREȚ]",
-        featured: false,
-      },
-      {
-        num: "04",
-        title: "Pachet complet",
-        description: "Idee, filmare, editare și postare. Tu doar apari în cadru.",
-        features: ["Tot ce e mai sus, lunar", "Un om dedicat contului tău", "[Nr.] clipuri pe lună"],
-        price: "[PREȚ]",
-        featured: true,
-      },
-    ],
   },
 
   contact: {
@@ -367,5 +249,201 @@ export const site: SiteContent = {
 
   footer: {
     copyright: "© 2026 Pleiar · [Numele agenției]",
+  },
+
+  /** Pagina „/” – Agenția, pentru branduri. */
+  agency: {
+    navLinks: [
+      { label: "Clienți", href: "#clienti" },
+      { label: "Ce oferim", href: "#servicii" },
+    ],
+
+    hero: {
+      eyebrow: "Vlogger · Editor · Agenție",
+      title: {
+        before: "Facem clipuri pe care oamenii",
+        highlight: "chiar le privesc",
+        after: "până la capăt.",
+      },
+      subtitle:
+        "Am început cu propriul canal de YouTube. Acum filmăm, edităm și creștem conturile de social media ale clienților noștri.",
+      primaryCta: { label: "Vezi rezultatele", href: "#clienti" },
+      secondaryCta: { label: "Canalul de YouTube", href: "/youtube" },
+      showreel: {
+        src: "/videos/showreel.mp4", // TEST – de înlocuit
+        poster: "/posters/showreel.webp",
+        placeholder:
+          "[Showreel 60 s – video pe tot ecranul, pornește automat fără sunet]",
+        soundOnLabel: "Pornește sunetul",
+        soundOffLabel: "Oprește sunetul",
+      },
+    },
+
+    marquee: {
+      items: ["EDITARE", "FILMARE", "SOCIAL MEDIA", "VLOG", "REELS", "TIKTOK", "YOUTUBE"],
+      separator: "✦",
+    },
+
+    clients: {
+      eyebrow: "02 · Agenția",
+      title: "Clienții noștri și clipurile care au mers",
+      intro:
+        "Filmăm și edităm pentru branduri și creatori pe TikTok, Instagram și YouTube. Cifrele sunt de pe conturile lor.",
+      logos: [
+        { name: "[Logo client 1]", src: null },
+        { name: "[Logo client 2]", src: null },
+        { name: "[Logo client 3]", src: null },
+        { name: "[Logo client 4]", src: null },
+        { name: "[Logo client 5]", src: null },
+        { name: "[Logo client 6]", src: null },
+      ],
+      filters: {
+        ariaLabel: "Filtrează după platformă",
+        allLabel: "Toate",
+        platforms: ["TikTok", "Instagram", "YouTube Shorts"],
+      },
+      viewsLabel: "views",
+      player: {
+        openLabel: "Vezi clipul cu sunet",
+        closeLabel: "Închide clipul",
+        loadingLabel: "Se încarcă clipul…",
+        originalLabel: "Vezi clipul original",
+      },
+      clips: [
+        { client: "[Client 1]", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 1]" },
+        { client: "[Client 2]", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 2]" },
+        { client: "[Client 3]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 3]" },
+        { client: "[Client 4]", platform: "TikTok", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 4]" },
+        { client: "[Client 5]", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 5]" },
+        { client: "[Client 6]", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 6]" },
+        { client: "[Client 7]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 7]" },
+        { client: "[Client 8]", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 8]" },
+      ],
+      stats: [
+        { value: null, label: "vizualizări generate pentru clienți" },
+        { value: null, label: "clienți activi" },
+        { value: null, label: "urmăritori câștigați de clienți" },
+      ],
+    },
+
+    services: {
+      eyebrow: "03 · Ce oferim",
+      title: "De la filmare la contul care crește",
+      featuredLabel: "Cel mai cerut",
+      pricePrefix: "de la",
+      items: [
+        {
+          num: "01",
+          title: "Editare video",
+          description: "Short-form și long-form, cu ritm construit pentru retenție.",
+          features: ["Reels, TikTok, Shorts", "Vloguri și clipuri YouTube", "Subtitrări, sound design, color"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "02",
+          title: "Filmare",
+          description: "Venim cu echipamentul și filmăm conținut gata de editat.",
+          features: ["Zile de filmare pentru branduri", "Evenimente și behind the scenes", "Conținut pentru o lună într-o zi"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "03",
+          title: "Social media & marketing",
+          description: "Strategie, calendar de postări și creștere organică.",
+          features: ["Strategie și idei de conținut", "Administrare conturi", "Rapoarte lunare cu rezultate"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "04",
+          title: "Pachet complet",
+          description: "Idee, filmare, editare și postare. Tu doar apari în cadru.",
+          features: ["Tot ce e mai sus, lunar", "Un om dedicat contului tău", "[Nr.] clipuri pe lună"],
+          price: "[PREȚ]",
+          featured: true,
+        },
+      ],
+    },
+  },
+
+  /** Pagina „/youtube” – pentru creatori (vlogueri, podcasteri, streameri). */
+  creators: {
+    navLinks: [
+      { label: "Despre", href: "#despre" },
+      { label: "Top 3", href: "#youtube" },
+      { label: "Ce editez", href: "#servicii" },
+    ],
+
+    about: {
+      eyebrow: "01 · Omul din spatele camerei",
+      title: "Salut, sunt Pleiar.",
+      paragraphs: [
+        "[2–3 fraze despre tine: cum ai început canalul, ce fel de vloguri faci și de ce. Scrise la persoana I, pe tonul de pe canal.]",
+        "[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]",
+      ],
+      portrait: {
+        src: "/images/portret.jpg", // TEST – de înlocuit
+        alt: "Pleiar în culise, cu camera în mână",
+        placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
+      },
+      stats: [
+        { value: null, label: "abonați YouTube" },
+        { value: null, label: "vizualizări pe canal" },
+        { value: null, label: "clipuri editate" },
+      ],
+    },
+
+    youtube: {
+      eyebrow: "02 · De pe canalul meu",
+      title: "Top 3 clipuri de pe YouTube",
+      /** Butonul duce la linkul din `social.youtube`. */
+      subscribeLabel: "Abonează-te pe YouTube",
+      viewsLabel: "vizualizări",
+      playLabel: "Redă clipul",
+      videos: [
+        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 1]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 1]" },
+        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 2]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 2]" },
+        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 3]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 3]" },
+      ],
+    },
+
+    /**
+     * Ca să adaugi un serviciu nou: copiezi un card de mai jos (de la `{` la `},`),
+     * îi schimbi numărul, titlul și textele. Grila se aranjează singură.
+     */
+    services: {
+      eyebrow: "03 · Pentru creatori",
+      title: "Ce editez pentru creatori",
+      featuredLabel: "Cel mai cerut",
+      pricePrefix: "de la",
+      items: [
+        {
+          num: "01",
+          title: "Vloguri",
+          description: "Montaj care ține oamenii până la final: hook din primele secunde, ritm și poveste.",
+          features: ["Vloguri și clipuri long-form pentru YouTube", "Structură gândită pentru retenție", "Subtitrări, sound design, color"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "02",
+          title: "Podcasturi",
+          description: "Podcastul video editat cap-coadă, plus clipuri scurte din cele mai bune momente.",
+          features: ["Montaj pe mai multe camere", "Sunet curățat și egalizat", "Clipuri scurte pentru TikTok, Reels, Shorts"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "03",
+          title: "Stream-uri",
+          description: "Din ore de live pe Twitch sau YouTube, scot momentele care merită văzute.",
+          features: ["Highlights și best-of-uri pentru YouTube", "Clipuri scurte din momentele bune", "Intro, tranziții și subtitrări"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+      ],
+    },
   },
 };

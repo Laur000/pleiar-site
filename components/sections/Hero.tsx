@@ -6,10 +6,10 @@ import { Reveal } from "@/components/motion/Reveal";
 import { hrefOr } from "@/lib/links";
 
 export function Hero() {
-  const { hero } = site;
+  const { hero } = site.agency;
 
   return (
-    <section id="top" className="surface-dark">
+    <section className="surface-dark">
       <div className="container-site flex flex-col gap-12 pt-16 pb-16 md:pt-24 md:pb-[72px]">
         <div className="flex max-w-[1040px] flex-col gap-6">
           <Reveal as="p" className="flex items-center gap-2.5 text-sm tracking-[0.14em] text-gray-400 uppercase">

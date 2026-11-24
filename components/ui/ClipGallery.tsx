@@ -7,8 +7,8 @@ import { ClipCard } from "@/components/ui/ClipCard";
 import { ClipLightbox } from "@/components/ui/ClipLightbox";
 import { EASE_SMOOTH, Reveal } from "@/components/motion/Reveal";
 
-type Props = { clients: SiteContent["clients"] };
-type Clip = SiteContent["clients"]["clips"][number];
+type Props = { clients: SiteContent["agency"]["clients"] };
+type Clip = SiteContent["agency"]["clients"]["clips"][number];
 
 const transition = { duration: 0.45, ease: EASE_SMOOTH };
 
