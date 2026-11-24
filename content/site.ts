@@ -37,6 +37,13 @@ export type Stat = {
 
 export type Platform = "TikTok" | "Instagram" | "YouTube Shorts";
 
+/** O poză 4:5 în public/images/. Cât timp `src` e `null`, apare `placeholder`. */
+export type Portrait = {
+  src: Url;
+  alt: string;
+  placeholder: string;
+};
+
 /** Rețelele sociale. Apar în footer; linkul de YouTube e folosit și la „Abonează-te”. */
 export type SocialLinks = {
   youtube: Link;
@@ -123,6 +130,15 @@ export type SiteContent = {
       items: string[];
       separator: string;
     };
+    /** „Cine e în spate”: rezumatul despre tine, cu link spre pagina de creatori. */
+    founder: {
+      eyebrow: string;
+      title: string;
+      paragraphs: string[];
+      portrait: Portrait;
+      stats: Stat[];
+      link: Link;
+    };
     clients: {
       eyebrow: string;
       title: string;
@@ -175,12 +191,7 @@ export type SiteContent = {
       eyebrow: string;
       title: string;
       paragraphs: string[];
-      portrait: {
-        /** Imagine 4:5 în public/images/. */
-        src: Url;
-        alt: string;
-        placeholder: string;
-      };
+      portrait: Portrait;
       stats: Stat[];
     };
     youtube: {
@@ -209,6 +220,21 @@ export type SiteContent = {
 /* ------------------------------------------------------------------ */
 /* Conținut                                                            */
 /* ------------------------------------------------------------------ */
+
+/*
+ * Date care apar pe AMBELE pagini. Le schimbi o singură dată aici:
+ * la Agenție („Cine e în spate”) și la Creatori („Despre”).
+ */
+
+/** Portretul tău (4:5, în public/images/). */
+const PORTRAIT: Portrait = {
+  src: "/images/portret.jpg", // TEST – de înlocuit
+  alt: "Pleiar în culise, cu camera în mână",
+  placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
+};
+
+/** Abonații de pe canalul de YouTube. */
+const YOUTUBE_SUBSCRIBERS: Stat = { value: null, label: "abonați YouTube" };
 
 export const site: SiteContent = {
   meta: {
@@ -254,6 +280,7 @@ export const site: SiteContent = {
   /** Pagina „/” – Agenția, pentru branduri. */
   agency: {
     navLinks: [
+      { label: "Despre", href: "#fondator" },
       { label: "Clienți", href: "#clienti" },
       { label: "Ce oferim", href: "#servicii" },
     ],
@@ -282,6 +309,17 @@ export const site: SiteContent = {
     marquee: {
       items: ["EDITARE", "FILMARE", "SOCIAL MEDIA", "VLOG", "REELS", "TIKTOK", "YOUTUBE"],
       separator: "✦",
+    },
+
+    founder: {
+      eyebrow: "01 · Cine e în spate",
+      title: "Agenția e condusă de un creator.",
+      paragraphs: [
+        "[1–2 fraze pentru branduri: cine ești și ce ai învățat pe propriul canal despre ce îi face pe oameni să se uite până la capăt – și aplici acum pentru clienți.]",
+      ],
+      portrait: PORTRAIT,
+      stats: [YOUTUBE_SUBSCRIBERS],
+      link: { label: "Vezi canalul meu", href: "/youtube" },
     },
 
     clients: {
@@ -383,13 +421,9 @@ export const site: SiteContent = {
         "[2–3 fraze despre tine: cum ai început canalul, ce fel de vloguri faci și de ce. Scrise la persoana I, pe tonul de pe canal.]",
         "[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]",
       ],
-      portrait: {
-        src: "/images/portret.jpg", // TEST – de înlocuit
-        alt: "Pleiar în culise, cu camera în mână",
-        placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
-      },
+      portrait: PORTRAIT,
       stats: [
-        { value: null, label: "abonați YouTube" },
+        YOUTUBE_SUBSCRIBERS,
         { value: null, label: "vizualizări pe canal" },
         { value: null, label: "clipuri editate" },
       ],

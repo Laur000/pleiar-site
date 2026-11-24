@@ -4,6 +4,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
+import { Founder } from "@/components/sections/Founder";
 import { Clients } from "@/components/sections/Clients";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
@@ -20,6 +21,7 @@ export default function AgencyPage() {
       <main id="top">
         <Hero />
         <Marquee marquee={site.agency.marquee} />
+        <Founder />
         <Clients />
         <Services services={site.agency.services} />
         <Contact />

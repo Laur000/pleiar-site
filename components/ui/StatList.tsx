@@ -10,6 +10,13 @@ type Props = {
   className?: string;
 };
 
+/** Varianta compactă: câte o coloană pentru fiecare cifră (1–3). */
+const COMPACT_COLUMNS: Record<number, string> = {
+  1: "grid-cols-1",
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+};
+
 export function StatList({
   stats,
   size = "compact",
@@ -17,11 +24,12 @@ export function StatList({
   className = "",
 }: Props) {
   const isLarge = size === "large";
+  const compactColumns = COMPACT_COLUMNS[stats.length] ?? "grid-cols-3";
 
   return (
     <dl
       className={`grid gap-4 ${
-        isLarge ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-3"
+        isLarge ? "grid-cols-1 sm:grid-cols-3" : compactColumns
       } ${className}`.trim()}
     >
       {stats.map((s) => (
