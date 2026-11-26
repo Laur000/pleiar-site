@@ -62,7 +62,7 @@ Forme:
 1. **Hero** negru: eticheta „Creatori · Editori · Agenție”, H1 cu „chiar le privesc” evidențiat cu galben (stil marker), subtitlu, 2 butoane, showreel 16:9 (video mut, autoplay, loop, cu buton de sunet).
 2. **Bandă marquee** galbenă cu bordură neagră: „EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦”, se mișcă continuu.
 3. **Cine suntem** (rezumat): câte un portret mic pentru fiecare creator (nume, nișă, abonați), 1–2 fraze despre echipă, link spre `/youtube`.
-4. **Clienți** pe galben: grid de logo-uri, filtre pe platformă (Toate / TikTok / Instagram / YouTube Shorts), grid de clipuri verticale 9:16 pe carduri negre cu bandă galbenă „[X] views”, apoi 3 cifre totale. Click pe clip: player pe tot ecranul, cu sunet.
+4. **Clienți** pe galben: grid de logo-uri, tab-uri pe categorie (**Toate** = 5 Ads + 5 Virale alternate / **Ads** / **Virale**), clipuri verticale 9:16 pe carduri negre (pastila platformei sus, bandă galbenă „[X] views” jos), **5 pe rând** pe desktop, 3 pe tabletă, 2 pe telefon, ultimul rând incomplet centrat; apoi 3 cifre totale. Click pe clip: player pe tot ecranul, cu sunet.
 5. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”.
 6. **Contact** pe galben: titlu uriaș „Ai ceva de filmat? Hai să vorbim.”, buton negru „Programează un call”, email.
 7. **Footer** negru: copyright + YouTube / Instagram / TikTok.
@@ -99,7 +99,7 @@ Unde lipsește o informație, folosește un placeholder vizibil între paranteze
 - Cifrele numără de la 0 când intră în ecran.
 - Hover pe carduri: ridicare 6px + rotire -0.4deg.
 - Marquee: CSS pur, 28s, liniar, infinit; se oprește la hover.
-- Filtrele de platformă: tranziție de layout (Motion `layout` + `AnimatePresence`).
+- Tab-urile de la Clienți (Toate / Ads / Virale): tranziție de layout (Motion `layout` + `AnimatePresence`).
 - Animează doar `transform` și `opacity`.
 
 ## Calitate

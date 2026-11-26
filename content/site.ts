@@ -37,6 +37,9 @@ export type Stat = {
 
 export type Platform = "TikTok" | "Instagram" | "YouTube Shorts";
 
+/** Tipul unui clip de client (după asta se filtrează galeria de la Agenție). */
+export type ClipCategory = "ads" | "virale";
+
 /** O poză 4:5 în public/images/. Cât timp `src` e `null`, apare `placeholder`. */
 export type Portrait = {
   src: Url;
@@ -183,10 +186,14 @@ export type SiteContent = {
         /** SVG/PNG transparent în public/logos/. */
         src: Url;
       }[];
+      /** Tab-urile de deasupra clipurilor: unul mixt + câte unul pe categorie. */
       filters: {
         ariaLabel: string;
-        allLabel: string;
-        platforms: Platform[];
+        /** Primul tab (activ la început): câte `mixedPerCategory` clipuri din fiecare categorie, alternate. */
+        mixedLabel: string;
+        mixedPerCategory: number;
+        /** Câte un tab pe categorie; arată toate clipurile din ea. Ordinea de aici e ordinea tab-urilor. */
+        categories: { id: ClipCategory; label: string }[];
       };
       viewsLabel: string;
       /** Player-ul care se deschide pe tot ecranul, cu sunet, la click pe un clip. */
@@ -200,6 +207,9 @@ export type SiteContent = {
       };
       clips: {
         client: string;
+        /** Tab-ul în care apare: „ads” sau „virale”. */
+        category: ClipCategory;
+        /** Platforma, afișată pe pastila albă din colțul clipului. */
         platform: Platform;
         /** Ce am făcut pentru client. */
         what: string;
@@ -249,7 +259,7 @@ export type SiteContent = {
         thumbnail: Url;
         title: string;
         views: number | null;
-        /** Ex. „12:34”. */
+        /** Ex. „12:34”. Lasă "" dacă thumbnail-ul are deja durata pe el (captură de pe YouTube). */
         duration: string;
         placeholder: string;
       }[];
@@ -281,8 +291,8 @@ const PLEIAR: CreatorProfile = {
   name: "Pleiar",
   niche: "[nișa – ex. Vloguri]",
   portrait: {
-    src: "/images/portret.jpg", // TEST – de înlocuit (4:5, în public/images/)
-    alt: "Pleiar în culise, cu camera în mână",
+    src: "/images/pleiar.png",
+    alt: "Pleiar, cu căști și mască neagră, pe fundal galben",
     placeholder: "[Portret Pleiar]",
   },
   bio: [
@@ -298,8 +308,8 @@ const CAPETURISTI: CreatorProfile = {
   name: "capeturisti",
   niche: "Travel",
   portrait: {
-    src: null, // [poză 4:5 în public/images/, ex. „/images/capeturisti.jpg”]
-    alt: "capeturisti",
+    src: "/images/capeturisti.png",
+    alt: "capeturisti, cu șapcă cu urechi de urs, în fața unui lac de munte",
     placeholder: "[Portret capeturisti]",
   },
   bio: [
@@ -415,9 +425,13 @@ export const site: SiteContent = {
         { name: "[Logo client 6]", src: null },
       ],
       filters: {
-        ariaLabel: "Filtrează după platformă",
-        allLabel: "Toate",
-        platforms: ["TikTok", "Instagram", "YouTube Shorts"],
+        ariaLabel: "Alege ce clipuri vezi",
+        mixedLabel: "Toate",
+        mixedPerCategory: 5,
+        categories: [
+          { id: "ads", label: "Ads" },
+          { id: "virale", label: "Virale" },
+        ],
       },
       viewsLabel: "views",
       player: {
@@ -426,15 +440,34 @@ export const site: SiteContent = {
         loadingLabel: "Se încarcă clipul…",
         originalLabel: "Vezi clipul original",
       },
+      /*
+       * Clipurile: `category` decide tab-ul (ads / virale). Tab-ul „Toate” ia primele 5 din fiecare
+       * categorie (în ordinea de aici) și le alternează. Poți pune oricâte (plan: 10 + 10); în „Ads” / „Virale” apar toate.
+       * TEST: toate folosesc deocamdată același clip (clip-1).
+       */
       clips: [
-        { client: "[Client 1]", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 1]" },
-        { client: "[Client 2]", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 2]" },
-        { client: "[Client 3]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 3]" },
-        { client: "[Client 4]", platform: "TikTok", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 4]" },
-        { client: "[Client 5]", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 5]" },
-        { client: "[Client 6]", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 6]" },
-        { client: "[Client 7]", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 7]" },
-        { client: "[Client 8]", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip vertical – Client 8]" },
+        // Ads
+        { client: "[Client ads 1]", category: "ads", platform: "TikTok", what: "[Ce am făcut: reclamă filmată + editată]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 1]" },
+        { client: "[Client ads 2]", category: "ads", platform: "Instagram", what: "[Ce am făcut: editare reclamă]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 2]" },
+        { client: "[Client ads 3]", category: "ads", platform: "YouTube Shorts", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 3]" },
+        { client: "[Client ads 4]", category: "ads", platform: "TikTok", what: "[Ce am făcut: editare reclamă]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 4]" },
+        { client: "[Client ads 5]", category: "ads", platform: "Instagram", what: "[Ce am făcut: campanie]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 5]" },
+        { client: "[Client ads 6]", category: "ads", platform: "YouTube Shorts", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 6]" },
+        { client: "[Client ads 7]", category: "ads", platform: "TikTok", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 7]" },
+        { client: "[Client ads 8]", category: "ads", platform: "Instagram", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 8]" },
+        { client: "[Client ads 9]", category: "ads", platform: "YouTube Shorts", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 9]" },
+        { client: "[Client ads 10]", category: "ads", platform: "TikTok", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip ads 10]" },
+        // Virale
+        { client: "[Client virale 1]", category: "virale", platform: "TikTok", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 1]" },
+        { client: "[Client virale 2]", category: "virale", platform: "Instagram", what: "[Ce am făcut: editare Reels]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 2]" },
+        { client: "[Client virale 3]", category: "virale", platform: "YouTube Shorts", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 3]" },
+        { client: "[Client virale 4]", category: "virale", platform: "TikTok", what: "[Ce am făcut: editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 4]" },
+        { client: "[Client virale 5]", category: "virale", platform: "Instagram", what: "[Ce am făcut: filmare + editare]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 5]" },
+        { client: "[Client virale 6]", category: "virale", platform: "YouTube Shorts", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 6]" },
+        { client: "[Client virale 7]", category: "virale", platform: "TikTok", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 7]" },
+        { client: "[Client virale 8]", category: "virale", platform: "Instagram", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 8]" },
+        { client: "[Client virale 9]", category: "virale", platform: "YouTube Shorts", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 9]" },
+        { client: "[Client virale 10]", category: "virale", platform: "TikTok", what: "[Ce am făcut]", views: null, video: "/videos/clip-1.mp4", videoHd: "/videos/clip-1-hd.mp4", poster: "/posters/clip-1.webp", href: null, placeholder: "[Clip viral 10]" },
       ],
       stats: [
         { value: null, label: "vizualizări generate pentru clienți" },
@@ -539,8 +572,8 @@ export const site: SiteContent = {
       playLabel: "Redă clipul",
       videos: [
         { creator: PLEIAR.name, youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip Pleiar]" },
-        { creator: CAPETURISTI.name, youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip capeturisti]" },
-        { creator: "[Numele creatorului]", youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip client]" },
+        { creator: CAPETURISTI.name, youtubeId: null, thumbnail: "/images/youtube/video-2.png", title: "[Titlul clipului]", views: null, duration: "", placeholder: "[Thumbnail clip capeturisti]" },
+        { creator: "[Numele creatorului]", youtubeId: null, thumbnail: "/images/youtube/video-3.png", title: "[Titlul clipului]", views: null, duration: "", placeholder: "[Thumbnail clip client]" },
       ],
     },
 

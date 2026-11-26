@@ -5,6 +5,14 @@ import { YouTubeLite } from "@/components/ui/YouTubeLite";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { formatNumber } from "@/lib/format";
 
+/** Durata în colțul thumbnail-ului. Goală = nu apare (ex. thumbnail care are deja durata pe el). */
+function Duration({ value }: { value: string }) {
+  if (!value) return null;
+  return (
+    <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">{value}</span>
+  );
+}
+
 /**
  * „Clipuri de pe YouTube” (pagina Creatori): 3 exemple de clipuri editate de noi
  * (fără clasament), fiecare cu canalul de pe care e. Iframe-ul YouTube se încarcă doar la click.
@@ -37,9 +45,7 @@ export function YouTubeClips() {
                         playLabel={youtube.playLabel}
                         thumbnail={v.thumbnail}
                       >
-                        <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">
-                          {v.duration}
-                        </span>
+                        <Duration value={v.duration} />
                       </YouTubeLite>
                     ) : v.thumbnail ? (
                       // Doar thumbnail (fără link YouTube încă): imagine simplă, fără redare.
@@ -51,16 +57,12 @@ export function YouTubeClips() {
                           sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                           className="object-cover"
                         />
-                        <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">
-                          {v.duration}
-                        </span>
+                        <Duration value={v.duration} />
                       </>
                     ) : (
                       <div className="flex size-full items-center justify-center p-4 text-center text-sm text-gray-400">
                         {v.placeholder}
-                        <span className="absolute right-3 bottom-3 rounded-md bg-black px-2 py-1 text-[13px] text-pure-white">
-                          {v.duration}
-                        </span>
+                        <Duration value={v.duration} />
                       </div>
                     )}
                   </div>

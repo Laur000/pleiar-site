@@ -51,10 +51,15 @@ export function ClipCard({ clip, viewsLabel, openLabel, onOpen }: Props) {
         <span className="pointer-events-none absolute top-2.5 left-2.5 rounded-pill bg-pure-white px-2.5 py-1 text-xs font-semibold text-black">
           {clip.platform}
         </span>
-        {/* Pe telefon cardul e îngust: textul rămâne pe un rând (mai mic), iar iconița apare de la sm în sus. */}
-        <span className="pointer-events-none absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-[10px] bg-yellow px-2.5 py-2 text-black sm:inset-x-2.5 sm:bottom-2.5 sm:px-3">
-          <span className="truncate font-display text-[13px] leading-tight font-bold sm:text-lg">{views}</span>
-          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="hidden shrink-0 sm:block">
+        {/*
+          Textul de views rămâne mereu pe un rând (ex. „12,5 mil. views”). Cardul e îngust pe telefon
+          (2 pe rând) și pe laptop mic (5 pe rând, lg): acolo textul e mai mic și iconița ▶ ascunsă.
+        */}
+        <span className="pointer-events-none absolute inset-x-2 bottom-2 flex items-center justify-between gap-2 rounded-[10px] bg-yellow px-2.5 py-2 text-black">
+          <span className="truncate font-display text-[13px] leading-tight font-bold sm:text-[15px] lg:text-[13px] xl:text-[15px]">
+            {views}
+          </span>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="hidden shrink-0 sm:block lg:hidden xl:block">
             <path d="M8 5v14l11-7z" />
           </svg>
         </span>
