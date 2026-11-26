@@ -44,6 +44,21 @@ export type Portrait = {
   placeholder: string;
 };
 
+/**
+ * Un creator din echipă. Apare pe ambele pagini: la Creatori („Despre”, card complet)
+ * și la Agenție („Cine suntem”, portret mic + prima cifră).
+ */
+export type CreatorProfile = {
+  name: string;
+  /** Ce fel de content face, ex. „Travel”. Apare ca etichetă lângă nume. */
+  niche: string;
+  portrait: Portrait;
+  /** 1–2 paragrafe despre el/ei. */
+  bio: string[];
+  /** Cifrele canalului. Prima apare și pe pagina Agenție (de obicei abonații). */
+  stats: Stat[];
+};
+
 /** Rețelele sociale. Apar în footer; linkul de YouTube e folosit și la „Abonează-te”. */
 export type SocialLinks = {
   youtube: Link;
@@ -58,6 +73,8 @@ export type SocialLinks = {
 export type ServicesContent = {
   eyebrow: string;
   title: string;
+  /** O frază sub titlu (opțional), ex. ce include și ce nu. */
+  intro?: string;
   /** Eticheta de pe cardul cu `featured: true` (ex. „Cel mai cerut”). */
   featuredLabel: string;
   pricePrefix: string;
@@ -153,8 +170,8 @@ export type SiteContent = {
       eyebrow: string;
       title: string;
       paragraphs: string[];
-      portrait: Portrait;
-      stats: Stat[];
+      /** Creatorii arătați aici (portret mic, nume, nișă și prima lor cifră). */
+      creators: CreatorProfile[];
       link: Link;
     };
     clients: {
@@ -208,20 +225,24 @@ export type SiteContent = {
     meta: PageMeta;
     hero: HeroContent;
     marquee: MarqueeContent;
+    /** „Despre”: echipa, cu câte un card pentru fiecare creator. */
     about: {
       eyebrow: string;
       title: string;
+      /** Textul despre echipă/agenție, deasupra cardurilor. */
       paragraphs: string[];
-      portrait: Portrait;
+      creators: CreatorProfile[];
+      /** Cifrele echipei (sub carduri), ex. clipuri editate. */
       stats: Stat[];
     };
     youtube: {
       eyebrow: string;
       title: string;
-      subscribeLabel: string;
       viewsLabel: string;
       playLabel: string;
       videos: {
+        /** De pe ce canal e clipul (numele creatorului). */
+        creator: string;
         /** ID-ul din link: youtube.com/watch?v=ACESTA */
         youtubeId: string | null;
         /** Thumbnail propriu 16:9 în public/images/youtube/. Dacă e `null`, se ia cel de la YouTube. */
@@ -233,8 +254,10 @@ export type SiteContent = {
         placeholder: string;
       }[];
     };
-    /** „Ce editez pentru creatori”. */
+    /** „Ce edităm pentru creatori”: doar editare (creatorul ne trimite materialul). */
     services: ServicesContent;
+    /** „Filmare + editare”: venim noi cu aparatura (mai scump: deplasare + echipament). */
+    filming: ServicesContent;
   };
 };
 
@@ -243,19 +266,52 @@ export type SiteContent = {
 /* ------------------------------------------------------------------ */
 
 /*
- * Date care apar pe AMBELE pagini. Le schimbi o singură dată aici:
- * la Agenție („Cine e în spate”) și la Creatori („Despre”).
+ * Date care apar pe AMBELE pagini. Le schimbi o singură dată aici.
  */
 
-/** Portretul tău (4:5, în public/images/). */
-const PORTRAIT: Portrait = {
-  src: "/images/portret.jpg", // TEST – de înlocuit
-  alt: "Pleiar în culise, cu camera în mână",
-  placeholder: "[Portret Pleiar – din culise, cu camera în mână]",
+/** Numele agenției (încă nedecis). Apare în footer. */
+const AGENCY_NAME = "[Numele agenției]";
+
+/*
+ * Creatorii din echipă. Fiecare apare la Creatori („Despre”, card complet)
+ * și la Agenție („Cine suntem”, portret mic + prima cifră).
+ * Ordinea din CREATORS e ordinea de pe site. Pentru un creator nou: copiezi un bloc.
+ */
+const PLEIAR: CreatorProfile = {
+  name: "Pleiar",
+  niche: "[nișa – ex. Vloguri]",
+  portrait: {
+    src: "/images/portret.jpg", // TEST – de înlocuit (4:5, în public/images/)
+    alt: "Pleiar în culise, cu camera în mână",
+    placeholder: "[Portret Pleiar]",
+  },
+  bio: [
+    "[Pleiar a început cu … – 2–3 fraze: cum a început canalul, ce fel de vloguri face și de ce.]",
+  ],
+  stats: [
+    { value: null, label: "abonați YouTube" },
+    { value: null, label: "vizualizări pe canal" },
+  ],
 };
 
-/** Abonații de pe canalul de YouTube. */
-const YOUTUBE_SUBSCRIBERS: Stat = { value: null, label: "abonați YouTube" };
+const CAPETURISTI: CreatorProfile = {
+  name: "capeturisti",
+  niche: "Travel",
+  portrait: {
+    src: null, // [poză 4:5 în public/images/, ex. „/images/capeturisti.jpg”]
+    alt: "capeturisti",
+    placeholder: "[Portret capeturisti]",
+  },
+  bio: [
+    "[capeturisti face content de travel … – 2–3 fraze: ce fel de călătorii, pe ce platforme, ce îi face diferiți.]",
+  ],
+  stats: [
+    { value: null, label: "abonați YouTube" },
+    { value: null, label: "vizualizări pe canal" },
+  ],
+};
+
+const CREATORS: CreatorProfile[] = [PLEIAR, CAPETURISTI];
 
 export const site: SiteContent = {
   meta: {
@@ -290,7 +346,7 @@ export const site: SiteContent = {
   },
 
   footer: {
-    copyright: "© 2026 Pleiar · [Numele agenției]",
+    copyright: `© 2026 ${AGENCY_NAME} · ${CREATORS.map((c) => c.name).join(" & ")}`,
   },
 
   /** Pagina „/” – Agenția, pentru branduri. */
@@ -310,16 +366,16 @@ export const site: SiteContent = {
     },
 
     hero: {
-      eyebrow: "Vlogger · Editor · Agenție",
+      eyebrow: "Creatori · Editori · Agenție",
       title: {
         before: "Facem clipuri pe care oamenii",
         highlight: "chiar le privesc",
         after: "până la capăt.",
       },
       subtitle:
-        "Am început cu propriul canal de YouTube. Acum filmăm, edităm și creștem conturile de social media ale clienților noștri.",
+        "Am început cu propriile canale de YouTube. Acum filmăm, edităm și creștem conturile de social media ale clienților noștri.",
       primaryCta: { label: "Vezi rezultatele", href: "#clienti" },
-      secondaryCta: { label: "Canalul de YouTube", href: "/youtube" },
+      secondaryCta: { label: "Canalele noastre", href: "/youtube" },
       showreel: {
         src: "/videos/showreel.mp4", // TEST – de înlocuit
         poster: "/posters/showreel.webp",
@@ -336,14 +392,13 @@ export const site: SiteContent = {
     },
 
     founder: {
-      eyebrow: "01 · Cine e în spate",
-      title: "Agenția e condusă de un creator.",
+      eyebrow: "01 · Cine suntem",
+      title: "Agenția e condusă de creatori.",
       paragraphs: [
-        "[1–2 fraze pentru branduri: cine ești și ce ai învățat pe propriul canal despre ce îi face pe oameni să se uite până la capăt – și aplici acum pentru clienți.]",
+        "[1–2 fraze pentru branduri: cine sunteți și ce ați învățat pe propriile canale despre ce îi face pe oameni să se uite până la capăt – și aplicați acum pentru clienți.]",
       ],
-      portrait: PORTRAIT,
-      stats: [YOUTUBE_SUBSCRIBERS],
-      link: { label: "Vezi canalul meu", href: "/youtube" },
+      creators: CREATORS,
+      link: { label: "Vezi canalele noastre", href: "/youtube" },
     },
 
     clients: {
@@ -434,63 +489,58 @@ export const site: SiteContent = {
   creators: {
     navLinks: [
       { label: "Despre", href: "#despre" },
-      { label: "Top 3", href: "#youtube" },
-      { label: "Ce editez", href: "#servicii" },
+      { label: "Clipuri", href: "#youtube" },
+      { label: "Ce edităm", href: "#servicii" },
+      { label: "Filmare", href: "#filmare" },
     ],
 
     meta: {
       title: "Pleiar – editare vloguri, podcasturi și stream-uri",
       description:
-        "Editez vloguri, podcasturi și stream-uri pentru creatori, cu ritmul învățat pe propriul canal de YouTube. Tu filmezi, eu fac restul.",
-      shareImageAlt: "PLEIAR – Tu filmezi. Eu editez ca să fie privit până la capăt.",
+        "Edităm vloguri, reclame (ads), podcasturi și stream-uri pentru creatori, cu ritmul învățat pe propriile canale. Tu filmezi, noi facem restul.",
+      shareImageAlt: "PLEIAR – Tu filmezi. Noi edităm ca să fie privit până la capăt.",
     },
 
     hero: {
-      eyebrow: "Vlogger · Editor",
+      eyebrow: "Creatori · Editori",
       title: {
         before: "Tu filmezi.",
-        highlight: "Eu editez",
+        highlight: "Noi edităm",
         after: "ca să fie privit până la capăt.",
       },
       subtitle:
-        "Vloguri, podcasturi și stream-uri editate de un creator care face asta și pe propriul canal de YouTube.",
+        "Vloguri, ads, podcasturi și stream-uri editate de creatori care fac asta și pe propriile canale de YouTube, TikTok și Insta.",
       primaryCta: { label: "Cere o ofertă", href: "#contact" },
-      secondaryCta: { label: "Vezi ce editez", href: "#servicii" },
-      // Fără video aici: dovada sunt clipurile din „Top 3”. Poți pune un showreel ca la Agenție.
+      secondaryCta: { label: "Vezi ce edităm", href: "#servicii" },
+      // Fără video aici: dovada sunt „Clipuri de pe YouTube”. Poți pune un showreel ca la Agenție.
       showreel: null,
     },
 
     marquee: {
-      items: ["VLOGURI", "PODCASTURI", "STREAM-URI", "TWITCH", "SHORTS", "YOUTUBE"],
+      items: ["VLOGURI", "PODCASTURI", "STREAM-URI", "ADS", "TWITCH", "SHORTS", "YOUTUBE"],
       separator: "✦",
     },
 
     about: {
-      eyebrow: "01 · Omul din spatele camerei",
-      title: "Salut, sunt Pleiar.",
+      eyebrow: "01 · Oamenii din spatele camerei",
+      title: "Salut, suntem [PLACEHOLDER].",
       paragraphs: [
-        "[2–3 fraze despre tine: cum ai început canalul, ce fel de vloguri faci și de ce. Scrise la persoana I, pe tonul de pe canal.]",
-        "[Cum a apărut agenția: ce ai învățat pe propriul canal și aplici acum pentru clienți – ritm, retenție, hook-uri.]",
+        "[Cum a apărut agenția: ce am învățat pe propriile canale și aplicăm acum pentru clienți – ritm, retenție, hook-uri.]",
       ],
-      portrait: PORTRAIT,
-      stats: [
-        YOUTUBE_SUBSCRIBERS,
-        { value: null, label: "vizualizări pe canal" },
-        { value: null, label: "clipuri editate" },
-      ],
+      creators: CREATORS,
+      stats: [{ value: null, label: "clipuri editate de echipă" }],
     },
 
+    // 3 exemple de clipuri editate de noi: unul de la Pleiar, unul de la capeturisti, unul de la un client.
     youtube: {
-      eyebrow: "02 · De pe canalul meu",
-      title: "Top 3 clipuri de pe YouTube",
-      /** Butonul duce la linkul din `social.youtube`. */
-      subscribeLabel: "Abonează-te pe YouTube",
+      eyebrow: "02 · Editate de noi",
+      title: "Clipuri de pe YouTube",
       viewsLabel: "vizualizări",
       playLabel: "Redă clipul",
       videos: [
-        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 1]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 1]" },
-        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 2]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 2]" },
-        { youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului 3]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip 3]" },
+        { creator: PLEIAR.name, youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip Pleiar]" },
+        { creator: CAPETURISTI.name, youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip capeturisti]" },
+        { creator: "[Numele creatorului]", youtubeId: null, thumbnail: "/images/youtube/video-1.jpg", title: "[Titlul clipului]", views: null, duration: "[durată]", placeholder: "[Thumbnail clip client]" },
       ],
     },
 
@@ -499,8 +549,9 @@ export const site: SiteContent = {
      * îi schimbi numărul, titlul și textele. Grila se aranjează singură.
      */
     services: {
-      eyebrow: "03 · Pentru creatori",
-      title: "Ce editez pentru creatori",
+      eyebrow: "03 · Doar editare",
+      title: "Ce edităm pentru creatori",
+      intro: "Tu filmezi și ne trimiți materialul, noi îl transformăm în clipuri gata de postat.",
       featuredLabel: "Cel mai cerut",
       pricePrefix: "de la",
       items: [
@@ -523,8 +574,55 @@ export const site: SiteContent = {
         {
           num: "03",
           title: "Stream-uri",
-          description: "Din ore de live pe Twitch sau YouTube, scot momentele care merită văzute.",
+          description: "Din ore de live pe Twitch sau YouTube, scoatem momentele care merită văzute.",
           features: ["Highlights și best-of-uri pentru YouTube", "Clipuri scurte din momentele bune", "Intro, tranziții și subtitrări"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "04",
+          title: "Editare Ads",
+          description: "Campaniile primite de la branduri, editate profesionist, ca reclama să arate bine și să-și facă treaba.",
+          features: ["Ads pentru TikTok, Instagram, YouTube și Facebook", "Formate verticale și orizontale, cum cere brandul", "Hook, subtitrări, sound design, mesaj clar"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+      ],
+    },
+
+    /**
+     * Filmare + editare: venim noi cu aparatura. E separat de „Doar editare”
+     * pentru că prețul include deplasarea și echipamentul.
+     */
+    filming: {
+      eyebrow: "04 · Filmare + editare",
+      title: "Venim noi, filmăm și edităm",
+      intro:
+        "Venim la tine cu aparatură profesională: cameră, lumini și sunet. Prețul include deplasarea și echipamentul, plus editarea.",
+      featuredLabel: "Cel mai cerut",
+      pricePrefix: "de la",
+      items: [
+        {
+          num: "01",
+          title: "Vlog",
+          description: "Te însoțim la filmare – în oraș, la un eveniment sau într-o călătorie – și edităm vlogul cap-coadă.",
+          features: ["Cameraman pe toată durata filmării", "Aparatură profesională", "Editare inclusă, gata de postat"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "02",
+          title: "Podcast",
+          description: "Montăm studioul la tine: camere, lumini și microfoane. Apoi edităm episodul și clipurile scurte.",
+          features: ["Setup pe mai multe camere", "Microfoane și lumini profesionale", "Episod complet + clipuri scurte"],
+          price: "[PREȚ]",
+          featured: false,
+        },
+        {
+          num: "03",
+          title: "Ads",
+          description: "Filmăm reclama primită de la brand și o edităm pentru fiecare platformă pe care rulează.",
+          features: ["Filmare la locație sau la tine acasă", "Aparatură profesională", "Variante pentru TikTok, Reels, Shorts"],
           price: "[PREȚ]",
           featured: false,
         },

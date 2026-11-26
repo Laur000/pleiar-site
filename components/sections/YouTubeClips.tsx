@@ -1,40 +1,30 @@
 import Image from "next/image";
 import { site } from "@/content/site";
-import { ButtonLink } from "@/components/ui/Button";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { YouTubeLite } from "@/components/ui/YouTubeLite";
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { formatNumber } from "@/lib/format";
-import { hrefOr, isExternal } from "@/lib/links";
 
-export function YouTubeTop() {
-  const { social } = site;
+/**
+ * „Clipuri de pe YouTube” (pagina Creatori): 3 exemple de clipuri editate de noi
+ * (fără clasament), fiecare cu canalul de pe care e. Iframe-ul YouTube se încarcă doar la click.
+ */
+export function YouTubeClips() {
   const { youtube } = site.creators;
-  const channel = social.youtube.href;
 
   return (
     <section id="youtube" className="surface-dark section-y" aria-labelledby="youtube-titlu">
       <div className="container-site flex flex-col gap-12">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeader
-            id="youtube-titlu"
-            eyebrow={youtube.eyebrow}
-            title={youtube.title}
-            eyebrowClassName="text-yellow"
-            className="max-w-[680px]"
-          />
-          <Reveal delay={0.12}>
-            <ButtonLink
-              href={hrefOr(channel)}
-              variant="white"
-              {...(isExternal(channel) && { target: "_blank", rel: "noopener noreferrer" })}
-            >
-              {youtube.subscribeLabel}
-            </ButtonLink>
-          </Reveal>
-        </div>
+        <SectionHeader
+          id="youtube-titlu"
+          eyebrow={youtube.eyebrow}
+          title={youtube.title}
+          eyebrowClassName="text-yellow"
+          className="max-w-[680px]"
+        />
 
-        <RevealGroup as="ol" className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {/* 3 clipuri: unul sub altul pe telefon, toate 3 pe un rând de la tabletă (fără un clip singur pe rând). */}
+        <RevealGroup as="ul" className="grid grid-cols-1 gap-x-5 gap-y-10 md:grid-cols-3 lg:gap-x-6">
           {youtube.videos.map((v, i) => (
             <RevealItem as="li" key={i}>
               <div className="tile flex flex-col gap-4">
@@ -74,12 +64,9 @@ export function YouTubeTop() {
                       </div>
                     )}
                   </div>
-                  {/* Numărul 1-2-3 în cerc galben */}
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute -top-3.5 -left-2.5 flex size-14 items-center justify-center rounded-full bg-yellow font-display text-[30px] font-bold text-black"
-                  >
-                    {i + 1}
+                  {/* Canalul de pe care e clipul, pe pastilă galbenă */}
+                  <span className="pointer-events-none absolute top-3 left-3 rounded-pill bg-yellow px-3 py-1 text-[13px] font-semibold text-black">
+                    {v.creator}
                   </span>
                 </div>
                 <div className="flex flex-col gap-2">

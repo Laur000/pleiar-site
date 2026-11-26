@@ -5,7 +5,7 @@ import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { Marquee } from "@/components/sections/Marquee";
 import { About } from "@/components/sections/About";
-import { YouTubeTop } from "@/components/sections/YouTubeTop";
+import { YouTubeClips } from "@/components/sections/YouTubeClips";
 import { Services } from "@/components/sections/Services";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
@@ -21,8 +21,9 @@ export default function CreatorsPage() {
         <Hero hero={site.creators.hero} />
         <Marquee marquee={site.creators.marquee} />
         <About />
-        <YouTubeTop />
+        <YouTubeClips />
         <Services services={site.creators.services} />
+        <Services services={site.creators.filming} id="filmare" tone="dark" />
         <Contact />
       </main>
       <Footer />

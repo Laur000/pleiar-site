@@ -1,43 +1,34 @@
-import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/content/site";
 import { buttonClasses } from "@/components/ui/Button";
+import { PortraitFrame } from "@/components/ui/PortraitFrame";
 import { StatList } from "@/components/ui/StatList";
-import { Reveal, RevealGroup, RevealItem } from "@/components/motion/Reveal";
+import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 import { hrefOr } from "@/lib/links";
 
 /**
- * „Cine e în spate” (pagina Agenție): rezumatul despre Pleiar pentru branduri.
- * Varianta completă („Despre”) e pe pagina de creatori, unde duce butonul.
+ * „Cine suntem” (pagina Agenție): rezumatul echipei pentru branduri.
+ * Fiecare creator: portret mic, nume, nișă și prima cifră a canalului (de obicei abonații).
+ * Varianta completă („Despre”) e pe pagina Creatori, unde duce butonul.
  */
 export function Founder() {
   const { founder } = site.agency;
 
   return (
     <section id="fondator" className="surface-light section-y" aria-labelledby="fondator-titlu">
-      <div className="container-site grid grid-cols-1 items-center gap-12 md:grid-cols-[auto_1fr] md:gap-16">
-        {/* Portret mic, cu blocul galben decalat în spate (ca la „Despre”, mai mic) */}
-        <Reveal className="relative mr-3.5 mb-3.5 w-full max-w-[240px] md:w-[280px] md:max-w-none">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 translate-x-3.5 translate-y-3.5 rounded-card bg-yellow"
-          />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-card bg-black">
-            {founder.portrait.src ? (
-              <Image
-                src={founder.portrait.src}
-                alt={founder.portrait.alt}
-                fill
-                sizes="(min-width: 768px) 280px, 240px"
-                className="object-cover"
-              />
-            ) : (
-              <div className="flex size-full items-center justify-center p-5 text-center text-sm text-gray-400">
-                {founder.portrait.placeholder}
+      <div className="container-site grid grid-cols-1 items-center gap-12 lg:grid-cols-[auto_1fr] lg:gap-16">
+        <RevealGroup as="ul" className="grid max-w-[420px] grid-cols-2 gap-5 sm:gap-8">
+          {founder.creators.map((c) => (
+            <RevealItem as="li" key={c.name} className="flex flex-col gap-4">
+              <PortraitFrame portrait={c.portrait} sizes="190px" offset="sm" />
+              <div className="flex flex-col gap-0.5">
+                <span className="font-display text-xl leading-tight font-bold">{c.name}</span>
+                <span className="text-sm text-gray-600">{c.niche}</span>
               </div>
-            )}
-          </div>
-        </Reveal>
+              {c.stats[0] && <StatList stats={[c.stats[0]]} />}
+            </RevealItem>
+          ))}
+        </RevealGroup>
 
         <RevealGroup className="flex max-w-[640px] flex-col gap-6">
           <RevealItem as="p" className="eyebrow">
@@ -53,8 +44,7 @@ export function Founder() {
               {p}
             </RevealItem>
           ))}
-          <RevealItem className="mt-2 flex flex-wrap items-end gap-x-10 gap-y-6">
-            <StatList stats={founder.stats} className="min-w-[160px]" />
+          <RevealItem className="mt-2">
             <Link href={hrefOr(founder.link.href)} className={buttonClasses("outline-dark")}>
               {founder.link.label}
               <span aria-hidden="true">→</span>

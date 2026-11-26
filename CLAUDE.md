@@ -1,9 +1,10 @@
 # Pleiar – site portofoliu (vlog + editare video + agenție de marketing)
 
-Site în limba română, pentru Pleiar: vlogger pe YouTube care are și o agenție ce filmează, editează și administrează social media pentru clienți.
+Site în limba română pentru o agenție (numele e încă nedecis: `[Numele agenției]`) care filmează, editează și administrează social media pentru clienți.
+Agenția e o **echipă**: textele sunt la plural („noi”), iar creatorii principali sunt **Pleiar** și **capeturisti** (travel). Fiecare creator e definit o singură dată în `content/site.ts` (`PLEIAR`, `CAPETURISTI`, lista `CREATORS`) și apare pe ambele pagini.
 Are **două pagini**, pentru două publicuri (planul: `PLAN-2-PAGINI.md`; varianta veche one-page e în branch-ul `varianta-o-pagina`):
 - `/` – **Agenție**, pentru branduri: vede rezultatele clienților (views) și cere o ofertă.
-- `/youtube` – **Creatori** (vlogueri, podcasteri, streameri): vede canalul lui Pleiar ca dovadă și cere editare pentru propriul content.
+- `/youtube` – **Creatori** (vlogueri, podcasteri, streameri): vede canalele echipei ca dovadă și cere editare pentru propriul content.
 
 Referința vizuală e prototipul din `reference/prototip-galben.dc.html` (varianta „galben, negru, alb”).
 E scris într-un format de prototipare (`<x-dc>`, `{{hole}}`, `<sc-for>`): folosește-l DOAR ca referință de layout, culori, texte și ordine a secțiunilor. Nu copia sintaxa lui.
@@ -58,9 +59,9 @@ Forme:
 **Nav** (comun) sticky, negru: logo „PLEIAR” pe pastilă galbenă; comutator-pastilă între pagini (`Agenție | Creatori`, cu `aria-current` pe pagina activă); linkurile secțiunilor paginii curente; buton galben „Hai să lucrăm”. Pe mobil: meniu hamburger (comutatorul rămâne vizibil).
 
 ### `/` – Agenție (branduri)
-1. **Hero** negru: eticheta „Vlogger · Editor · Agenție”, H1 cu „chiar le privesc” evidențiat cu galben (stil marker), subtitlu, 2 butoane, showreel 16:9 (video mut, autoplay, loop, cu buton de sunet).
+1. **Hero** negru: eticheta „Creatori · Editori · Agenție”, H1 cu „chiar le privesc” evidențiat cu galben (stil marker), subtitlu, 2 butoane, showreel 16:9 (video mut, autoplay, loop, cu buton de sunet).
 2. **Bandă marquee** galbenă cu bordură neagră: „EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦”, se mișcă continuu.
-3. **Cine e în spate** (rezumat): mini-portret, 2 fraze, cifra de abonați, link spre `/youtube`.
+3. **Cine suntem** (rezumat): câte un portret mic pentru fiecare creator (nume, nișă, abonați), 1–2 fraze despre echipă, link spre `/youtube`.
 4. **Clienți** pe galben: grid de logo-uri, filtre pe platformă (Toate / TikTok / Instagram / YouTube Shorts), grid de clipuri verticale 9:16 pe carduri negre cu bandă galbenă „[X] views”, apoi 3 cifre totale. Click pe clip: player pe tot ecranul, cu sunet.
 5. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”.
 6. **Contact** pe galben: titlu uriaș „Ai ceva de filmat? Hai să vorbim.”, buton negru „Programează un call”, email.
@@ -69,11 +70,12 @@ Forme:
 ### `/youtube` – Creatori (vlogueri, podcasteri, streameri)
 1. **Hero** negru pentru creatori: titlu și subtitlu proprii, buton spre contact.
 2. **Bandă marquee** cu cuvintele creatorilor (VLOGURI ✦ PODCASTURI ✦ TWITCH ✦ SHORTS …).
-3. **Despre** pe alb: portret cu umbră galbenă decalată (bloc galben în spate), „Salut, sunt Pleiar.”, 2 paragrafe, 3 cifre (abonați, vizualizări, clipuri editate) cu linie neagră groasă deasupra.
-4. **Top 3 YouTube** pe negru: 3 carduri 16:9 cu număr 1-2-3 în cerc galben, titlu, vizualizări în galben. Embed YouTube „lite” (se încarcă iframe-ul doar la click).
-5. **Ce editez pentru creatori** pe alb: carduri de servicii (ex. vloguri, podcasturi, stream-uri/Twitch, Shorts din long-form), prețuri `[PREȚ]`.
-6. **Contact** pe galben, cu titlu pentru creatori.
-7. **Footer** negru (comun).
+3. **Despre** pe alb, **compact** (secțiunea cea mai puțin importantă – să nu ocupe mult): textul echipei în stânga, creatorii în dreapta, carduri mici (portret mic cu bloc galben, nume + nișă, 1–2 fraze, cifrele pe un rând). Fără butoane spre canale.
+4. **Clipuri de pe YouTube** pe negru: 3 exemple editate de noi (unul Pleiar, unul capeturisti, unul de la un client), **fără clasament** (fără „Top”, fără numere). Carduri 16:9 cu pastila galbenă a canalului, titlu, vizualizări în galben. Embed YouTube „lite” (se încarcă iframe-ul doar la click).
+5. **Doar editare – Ce edităm pentru creatori** pe alb: Vloguri, Podcasturi, Stream-uri, Editare Ads (campaniile influencerilor de la branduri), prețuri `[PREȚ]`.
+6. **Filmare + editare** pe negru, separat de editare: venim cu aparatura, filmăm și edităm (Vlog, Podcast, Ads). Mai scump: prețul include deplasarea și echipamentul.
+7. **Contact** pe galben.
+8. **Footer** negru (comun).
 
 ## Conținut
 
