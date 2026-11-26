@@ -69,6 +69,13 @@ export type SocialLinks = {
   tiktok: Link;
 };
 
+/** Programele cu care lucrăm (pastile cu numele lor) + o frază despre workflow. */
+export type ToolsContent = {
+  label: string;
+  items: string[];
+  note: string;
+};
+
 /**
  * O secțiune de servicii (carduri cu preț). Aceeași formă pe ambele pagini.
  * Poți adăuga sau șterge oricâte carduri în `items`; grila se aranjează singură.
@@ -78,6 +85,8 @@ export type ServicesContent = {
   title: string;
   /** O frază sub titlu (opțional), ex. ce include și ce nu. */
   intro?: string;
+  /** Rândul „Cu ce lucrăm” de sub carduri (opțional). */
+  tools?: ToolsContent;
   /** Eticheta de pe cardul cu `featured: true` (ex. „Cel mai cerut”). */
   featuredLabel: string;
   pricePrefix: string;
@@ -182,9 +191,21 @@ export type SiteContent = {
       title: string;
       intro: string;
       logos: {
+        /** Numele clientului (citit de Google și de cititoarele de ecran). */
         name: string;
-        /** SVG/PNG transparent în public/logos/. */
+        /** SVG/PNG transparent în public/logos/, tăiat strâns pe logo. */
         src: Url;
+        /**
+         * `false` = logo-ul apare în culorile lui. Implicit (lipsă / `true`) site-ul îl afișează
+         * în negru, ca toate să arate unitar pe galben. Pune `false` la logo-urile care au deja
+         * negru + alb (ex. un cerc negru cu text alb), altfel s-ar înnegri complet.
+         */
+        mono?: boolean;
+        /**
+         * `true` pentru logo-urile pătrate sau înalte (iconiță + text dedesubt): primesc mai mult
+         * spațiu pe înălțime, ca să nu pară mai mici decât cele late.
+         */
+        square?: boolean;
       }[];
       /** Tab-urile de deasupra clipurilor: unul mixt + câte unul pe categorie. */
       filters: {
@@ -323,6 +344,13 @@ const CAPETURISTI: CreatorProfile = {
 
 const CREATORS: CreatorProfile[] = [PLEIAR, CAPETURISTI];
 
+/** Programele cu care lucrăm. Apar sub serviciile de la Agenție („Ce oferim”) și Creatori („Ce edităm”). */
+const TOOLS: ToolsContent = {
+  label: "Cu ce lucrăm",
+  items: ["Adobe Premiere Pro", "Adobe After Effects", "DaVinci Resolve", "CapCut"],
+  note: "Pentru fiecare tip de proiect avem un workflow dedicat.",
+};
+
 export const site: SiteContent = {
   meta: {
     siteUrl: null, // [domeniul, ex. https://pleiar.ro]
@@ -417,12 +445,20 @@ export const site: SiteContent = {
       intro:
         "Filmăm și edităm pentru branduri și creatori pe TikTok, Instagram și YouTube. Cifrele sunt de pe conturile lor.",
       logos: [
-        { name: "[Logo client 1]", src: null },
-        { name: "[Logo client 2]", src: null },
-        { name: "[Logo client 3]", src: null },
-        { name: "[Logo client 4]", src: null },
-        { name: "[Logo client 5]", src: null },
-        { name: "[Logo client 6]", src: null },
+        { name: "iHunt", src: "/logos/ihunt.png" },
+        { name: "Heber", src: "/logos/heber.png" },
+        { name: "CrossMad Padel", src: "/logos/crossmad-padel.png" },
+        { name: "Bon Voyage Ploiești", src: "/logos/bon-voyage-ploiesti.png" },
+        { name: "Fulfilo", src: "/logos/fulfilo.png" },
+        { name: "Oferte Mag", src: "/logos/oferte-mag.png" },
+        { name: "Pizza Mania", src: "/logos/pizza-mania.png" },
+        { name: "Aladdin Shaormerie", src: "/logos/aladdin-shaormerie.png" },
+        { name: "Bon Appétit Câmpina", src: "/logos/bon-appetit-campina.png" },
+        { name: "Great Food Câmpina Delivery", src: "/logos/great-food-campina-delivery.png", square: true },
+        { name: "Amaden", src: "/logos/amaden.png", square: true },
+        { name: "GPS Auto", src: "/logos/gps-auto.png", square: true },
+        { name: "5 to go", src: "/logos/5-to-go.png", mono: false, square: true },
+        { name: "Nistor Dental Clinic", src: "/logos/nistor-dental-clinic.png", mono: false, square: true },
       ],
       filters: {
         ariaLabel: "Alege ce clipuri vezi",
@@ -479,6 +515,7 @@ export const site: SiteContent = {
     services: {
       eyebrow: "03 · Ce oferim",
       title: "De la filmare la contul care crește",
+      tools: TOOLS,
       featuredLabel: "Cel mai cerut",
       pricePrefix: "de la",
       items: [
@@ -585,6 +622,7 @@ export const site: SiteContent = {
       eyebrow: "03 · Doar editare",
       title: "Ce edităm pentru creatori",
       intro: "Tu filmezi și ne trimiți materialul, noi îl transformăm în clipuri gata de postat.",
+      tools: TOOLS,
       featuredLabel: "Cel mai cerut",
       pricePrefix: "de la",
       items: [

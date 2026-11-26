@@ -1,6 +1,7 @@
 import type { ServicesContent } from "@/content/site";
 import { Card, type CardTone } from "@/components/ui/Card";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { ToolsRow } from "@/components/ui/ToolsRow";
 import { RevealGroup, RevealItem } from "@/components/motion/Reveal";
 
 type Props = {
@@ -96,6 +97,8 @@ export function Services({ services, id = "servicii", tone = "light" }: Props) {
             );
           })}
         </RevealGroup>
+
+        {services.tools && <ToolsRow tools={services.tools} tone={tone} />}
       </div>
     </section>
   );

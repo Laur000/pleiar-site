@@ -20,15 +20,26 @@ export function Clients() {
           className="max-w-[780px]"
         />
 
-        <RevealGroup as="ul" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        {/*
+          Logo-urile: 2 pe rând pe telefon, 3 / 4 pe tabletă, 7 pe desktop (14 logo-uri = 2 rânduri pline).
+          Flex, ca ultimul rând incomplet să stea centrat. Implicit fiecare logo e afișat în negru
+          (`brightness-0`), ca grila să arate unitar pe galben; `mono: false` îl lasă în culorile lui.
+        */}
+        <RevealGroup as="ul" className="flex flex-wrap justify-center gap-3">
           {clients.logos.map((logo, i) => (
             <RevealItem
               as="li"
               key={`${logo.name}-${i}`}
-              className="relative flex h-[72px] items-center justify-center rounded-xl border-2 border-black px-4 text-center text-sm font-medium"
+              className="relative flex h-[72px] w-[calc((100%-0.75rem)/2)] items-center justify-center rounded-xl border-2 border-black px-4 text-center text-sm font-medium sm:w-[calc((100%-1.5rem)/3)] md:w-[calc((100%-2.25rem)/4)] lg:w-[calc((100%-4.5rem)/7)]"
             >
               {logo.src ? (
-                <Image src={logo.src} alt={logo.name} fill sizes="200px" className="object-contain p-4" />
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  fill
+                  sizes="(min-width: 1024px) 170px, (min-width: 768px) 25vw, 50vw"
+                  className={`object-contain ${logo.square ? "px-3 py-1" : "px-4 py-3"} ${logo.mono === false ? "" : "brightness-0"}`}
+                />
               ) : (
                 logo.name
               )}

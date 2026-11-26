@@ -63,7 +63,7 @@ Forme:
 2. **Bandă marquee** galbenă cu bordură neagră: „EDITARE ✦ FILMARE ✦ SOCIAL MEDIA ✦ VLOG ✦ REELS ✦ TIKTOK ✦ YOUTUBE ✦”, se mișcă continuu.
 3. **Cine suntem** (rezumat): câte un portret mic pentru fiecare creator (nume, nișă, abonați), 1–2 fraze despre echipă, link spre `/youtube`.
 4. **Clienți** pe galben: grid de logo-uri, tab-uri pe categorie (**Toate** = 5 Ads + 5 Virale alternate / **Ads** / **Virale**), clipuri verticale 9:16 pe carduri negre (pastila platformei sus, bandă galbenă „[X] views” jos), **5 pe rând** pe desktop, 3 pe tabletă, 2 pe telefon, ultimul rând incomplet centrat; apoi 3 cifre totale. Click pe clip: player pe tot ecranul, cu sunet.
-5. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”.
+5. **Ce oferim** pe alb: 4 carduri (Editare video, Filmare, Social media & marketing, Pachet complet). „Pachet complet” e negru cu galben și eticheta „Cel mai cerut”. Sub carduri, rândul „Cu ce lucrăm” (pastile cu numele programelor, fără logo-urile lor + fraza despre workflow), comun cu pagina Creatori (`TOOLS` în `content/site.ts`).
 6. **Contact** pe galben: titlu uriaș „Ai ceva de filmat? Hai să vorbim.”, buton negru „Programează un call”, email.
 7. **Footer** negru: copyright + YouTube / Instagram / TikTok.
 
@@ -72,7 +72,7 @@ Forme:
 2. **Bandă marquee** cu cuvintele creatorilor (VLOGURI ✦ PODCASTURI ✦ TWITCH ✦ SHORTS …).
 3. **Despre** pe alb, **compact** (secțiunea cea mai puțin importantă – să nu ocupe mult): textul echipei în stânga, creatorii în dreapta, carduri mici (portret mic cu bloc galben, nume + nișă, 1–2 fraze, cifrele pe un rând). Fără butoane spre canale.
 4. **Clipuri de pe YouTube** pe negru: 3 exemple editate de noi (unul Pleiar, unul capeturisti, unul de la un client), **fără clasament** (fără „Top”, fără numere). Carduri 16:9 cu pastila galbenă a canalului, titlu, vizualizări în galben. Embed YouTube „lite” (se încarcă iframe-ul doar la click).
-5. **Doar editare – Ce edităm pentru creatori** pe alb: Vloguri, Podcasturi, Stream-uri, Editare Ads (campaniile influencerilor de la branduri), prețuri `[PREȚ]`.
+5. **Doar editare – Ce edităm pentru creatori** pe alb: Vloguri, Podcasturi, Stream-uri, Editare Ads (campaniile influencerilor de la branduri), prețuri `[PREȚ]`. Sub carduri, rândul „Cu ce lucrăm” (același ca la Agenție).
 6. **Filmare + editare** pe negru, separat de editare: venim cu aparatura, filmăm și edităm (Vlog, Podcast, Ads). Mai scump: prețul include deplasarea și echipamentul.
 7. **Contact** pe galben.
 8. **Footer** negru (comun).
